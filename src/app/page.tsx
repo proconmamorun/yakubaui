@@ -6,9 +6,10 @@ import SideBar from './components/sideBar';
 import Home from './components/home';
 import Map from './components/map';
 import SafeCheck from './components/SafeCheck';
+import NewsBelt from './components/newsBelt';
 
 const Page: React.FC = () => {
-	const [mode, setMode] = useState<'home' | 'map' | 'SafeCheck'>('home');  // 'home' または 'map' の値を持つ
+	const [mode, setMode] = useState<'home' | 'map' | 'SafeCheck' | 'newsBelt'>('home');  // 'home' または 'map' の値を持つ
 	const [area, setArea] = useState<string>("");
     return (
         <div>
@@ -16,6 +17,7 @@ const Page: React.FC = () => {
 			{mode === 'home' && <Home />}
             {mode === 'map' && <Map area={area}/>}
 			{mode === 'SafeCheck' && <SafeCheck area={area}/>}
+			{mode === 'newsBelt' && <NewsBelt area={area}/>}
         </div>
     );
 };
