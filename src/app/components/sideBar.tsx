@@ -3,7 +3,7 @@ import './sideBarDesign.css'
 
 // chatGPTなのでわからん
 interface SideBarProps {
-    setMode: (mode: 'home' | 'map' | 'SafeCheck') => void; // モード切り替え用の関数を受け取る
+    setMode: (mode: 'home' | 'map' | 'SafeCheck' | 'newsBelt') => void; // モード切り替え用の関数を受け取る
     setArea: (area: string) => void; 
 }
 
@@ -73,7 +73,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea }) => {
 				</button>
 			</div>
 
-			<button className={"white-button"}>帯表示</button>
+			<button onClick={() => {setMode('newsBelt')}}className={"white-button"}>帯表示</button>
 			<button className={"white-button"}>危険を特定</button>
 		</div>
 	</div>
