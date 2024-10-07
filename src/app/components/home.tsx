@@ -4,14 +4,14 @@ import './homeDesign.css';  // 相対パスでCSSファイルをインポート
 const Home: React.FC = () => {
     return (
 		<div>
-			<p>home</p>
-			<div className="container">
-				<div className="grayBox">
-					<p className="mapText">ここに地図テキスト</p>
+			<div className="home-container">
+				<div className={"green-box"}>
+					<div className={"alert"}>土砂崩れに警戒してください</div>
+					<div className={"alert"}>土砂崩れに警戒してください</div>
 				</div>
-				<div className="grayBox2"></div>
-				<div className="greenBox1"></div>
-				<div className="greenBox2"></div>
+				<div className={"map-box"}>
+				<p className="mapText">ここに地図テキスト</p>
+				</div>
 			</div>
 		</div>
     );

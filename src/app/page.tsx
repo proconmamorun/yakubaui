@@ -18,8 +18,8 @@ const Page: React.FC = () => {
                 {mode === 'home' && <Home />}
                 {mode === 'map' && <Map area={area}/>}
                 {mode === 'SafeCheck' && <SafeCheck area={area}/>}
+                {mode === 'newsBelt' && <NewsBelt area={area}/>}
             </div>
-			{mode === 'newsBelt' && <NewsBelt area={area}/>}
         </div>
     );
 };
