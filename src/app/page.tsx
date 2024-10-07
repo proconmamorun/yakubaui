@@ -1,6 +1,6 @@
-'use client';
-
+'use client'
 import React, { useState } from 'react';
+import './pages.css';
 import SideBar from './components/sideBar';
 //　SideBarとかの最初の一文字大文字じゃないとバグるので注意
 import Home from './components/home';
@@ -12,11 +12,13 @@ const Page: React.FC = () => {
 	const [mode, setMode] = useState<'home' | 'map' | 'SafeCheck' | 'newsBelt'>('home');  // 'home' または 'map' の値を持つ
 	const [area, setArea] = useState<string>("");
     return (
-        <div>
+        <div className={"main-container"}>
 			<SideBar setMode={setMode} setArea={setArea}/>
-			{mode === 'home' && <Home />}
-            {mode === 'map' && <Map area={area}/>}
-			{mode === 'SafeCheck' && <SafeCheck area={area}/>}
+            <div className={"pages"}>
+                {mode === 'home' && <Home />}
+                {mode === 'map' && <Map area={area}/>}
+                {mode === 'SafeCheck' && <SafeCheck area={area}/>}
+            </div>
 			{mode === 'newsBelt' && <NewsBelt area={area}/>}
         </div>
     );

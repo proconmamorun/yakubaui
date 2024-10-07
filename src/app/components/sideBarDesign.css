@@ -1,12 +1,64 @@
-.container {
+.side {
 	display: flex;
 	justify-content: center;
 	align-items: center;
-	height: 60vh; /* 画面全体の高さに合わせる */
-	background-color: white; /* 背景色を白に設定 */
+	z-index: 2;
 }
 
-.container {
+.bar {
 	display: flex;
+	flex-flow: column;
+	gap: 20px;
+	width: 80%;
+	height: 80%;
+	border-radius: 10px;
+	background-color: #B5DFCA;
+	align-items: flex-start;
+
+	padding: 30px;
+}
+/*すべてのボタンのボーダーをあらかじめなしにする*/
+button{
+	border: none;
+	display: inline-block;
+	width: auto;
+	padding: 5px 10px;
 }
 
+.home {
+	background-color: #ffffff;
+	border-radius: 10px;
+}
+
+.big-button{
+	background-color: #2FA268;
+	color: white;
+	font-size: 1.5em;
+	border-radius: 10px;
+}
+
+.white-button {
+	background-color: #ffffff;
+	color: #2FA268;
+	font-size: 1.2em;
+	border-radius: 10px;
+}
+
+.white-area {
+	display: flex;
+	flex-flow: column;
+
+	width: 80%;
+	align-items: flex-start;
+
+	background-color: #ffffff;
+	border-radius: 10px;
+
+	padding: 10px;
+}
+
+.white-area button {
+	background: none;
+	color: #2FA268;
+	text-decoration:underline;
+}
