@@ -1,0 +1,37 @@
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh; /* 画面全体の高さに合わせる */
+  background-color: white; /* 背景色を白に設定 */
+}
+
+.grayBox {
+  width: 1000px;
+  height: 650px;
+  position: absolute; /* 絶対位置に配置 */
+  top: 100px;
+  right: 40px;
+  background-color: gray; /* 灰色の四角形 */
+  gap: 0px;
+  z-index: 1;
+}
+
+.greenBox1 {
+  width: 50px;
+  height: 200px;
+  position: absolute; /* 絶対位置に配置 */
+  top: 0px;
+  left: 80px;
+  background-color: #98CB9A; /* 灰色の四角形 */
+}
+
+.greenBox2 {
+  width: 200px;
+  height: 30px;
+  position: absolute; /* 絶対位置に配置 */
+  top: 130px;
+  left: 0px;
+  background-color: #98CB9A; /* 灰色の四角形 */
+}
+

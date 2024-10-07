@@ -1,0 +1,12 @@
+.container {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	height: 60vh; /* 画面全体の高さに合わせる */
+	background-color: white; /* 背景色を白に設定 */
+}
+
+.container {
+	display: flex;
+}
+
