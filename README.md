@@ -1,36 +1,34 @@
 This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
-## Getting Started
+## 開発メモ
 
-First, run the development server:
+ここに開発で共有しておく文章を書く
 
+
+
+実行はこれで
 ```bash
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+### コードの格納方法について
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+基本app/srcにアプリのファイルはすべてあります。
 
-## Learn More
+componentsに要素に分けて入れるようにしています。
 
-To learn more about Next.js, take a look at the following resources:
+なっちゃんから来たコードは一旦goverment-componetsに入れています。
+→なっちゃんのコードから分割、npm installして使えるようになったら自然に消えていくと思う
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+要するに一旦置いてあるので、移行の時は今後ともそうしてください
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
 
-## Deploy on Vercel
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### 今後の方針
+一旦sidebar周りは見た目のみ完成、→ボタンを押してプロパティを変更できるように
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+map周り、なっちゃんからgooglemapを引っ張ってきた　→grayboxと書いてあるdivにこれを表示できるように
+
+list周り、muiというコンポーネントかなんかでlistを作りたい　楽だから
+
