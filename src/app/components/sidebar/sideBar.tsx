@@ -1,4 +1,11 @@
 import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { collection, getDocs } from 'firebase/firestore';
+import { db } from '../firebaseConfig';
+import './MainApp';
+import { containerStyle, center } from './MainApp';
+import { GoogleMap, Marker } from "@react-google-maps/api";
+import '../component/GoogleMapComponent';
 import './sideBarDesign.css'
 
 // chatGPTなのでわからん
@@ -7,8 +14,12 @@ interface SideBarProps {
     setArea: (area: string) => void; 
 }
 
+
+
+
 const SideBar: React.FC<SideBarProps> = ({ setMode, setArea }) => {
-  return (
+
+	return (
 	  <div className="side">
 		  <div className="bar">
 			  <button className={"white-button"} onClick={() => setMode('home')}>Home</button>
