@@ -1,5 +1,5 @@
 import React from 'react';
-import { useMap } from '../maps/MapContext';
+import { useLocation } from '../maps/LocationContext';
 import './sideBarDesign.css'
 
 // chatGPTなのでわからん
@@ -11,8 +11,8 @@ interface SideBarProps {
 
 const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
 
-	//useMapからMap用の関数を読み込む
-	const { setMapCenter } = useMap();
+	//useLocationからMap用の関数を読み込む
+	const { setCenter } = useLocation();
 
 	// 地区ごとの地図の中央座標を定義
 	const mapchange: { [key: string]: { lat: number; lng: number } } = {
@@ -28,7 +28,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
 		//Mapの中心を引数に応じて動かす
 		const location = mapchange[district];
 		if (location) {
-			setMapCenter(location);
+			setCenter(location);
 		}
 	};
 

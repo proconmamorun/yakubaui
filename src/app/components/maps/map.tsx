@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import './mapDesign.css';
 import MapView from './MapView';
 import { useLocation } from './LocationContext';
