@@ -1,62 +1,57 @@
 import React, { useEffect, useState } from 'react';
-import { collection, getDocs } from 'firebase/firestore'; // Firestoreからコレクションを取得するための関数をインポート
-import { db } from '../firebaseConfig'; // Firebaseの設定ファイルからデータベースの参照をインポート
-import './MainApp'; // メインアプリのスタイルや設定ファイルをインポート
-import { containerStyle, center } from './MainApp'; // 地図のスタイルと初期位置をインポート
-import { GoogleMap, Marker } from "@react-google-maps/api"; // Googleマップのコンポーネントをインポート
-import '../component/GoogleMapComponent'; // GoogleMapComponentをインポート
+import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
+import { db } from '../firebase/firebaseConfig';
+import { collection, getDocs } from 'firebase/firestore';
 
-// 町民の位置情報を含むユーザーの型定義
+// ユーザー、救助隊員、公共職員の位置情報を定義
 type UserWithPosition = {
     id: string;
     name?: string;
-    safety?: string; // 安否情報
-    latitude: number; // 緯度
-    longitude: number; // 経度
-    district: string; // 地区
-}
-
-// 救助隊の位置情報の型定義
-type RescuePosition = {
-    id: string;
-    name: string; // 救助隊員の名前
-    latitude: number; // 緯度
-    longitude: number; // 経度
-    doing: string; // 現在の活動内容
-}
-
-// 役場職員の位置情報の型定義
-type PublicServantPosition = {
-    id: string;
-    name: string; // 役場職員の名前
-    latitude: number; // 緯度
-    longitude: number; // 経度
-    doing: string; // 現在の活動内容
-}
-
-// 地区ごとの地図の中央座標を定義するオブジェクト
-const mapchange: { [key: string]: { lat: number; lng: number } } = {
-    "神領": { lat: 33.96725162, lng: 134.35047543},
-    "上分": { lat: 33.964313, lng: 134.2590853},
-    "下分": { lat: 33.9598865, lng: 134.3070941},
-    "阿野": { lat: 34.005311, lng: 134.355696},
-    "鬼籠野": { lat: 33.9869602, lng: 134.371021}
+    safety?: string;
+    latitude: number;
+    longitude: number;
+    district: string;
 };
 
-// メインコンポーネント
-const ListApp: React.FC = () => {
+type RescuePosition = {
+    id: string;
+    name: string;
+    latitude: number;
+    longitude: number;
+    doing: string;
+};
+
+type PublicServantPosition = {
+    id: string;
+    name: string;
+    latitude: number;
+    longitude: number;
+    doing: string;
+};
+
+// MapViewコンポーネントの実装
+interface MapViewProps {
+    mapCenter: { lat: number, lng: number }; // 地図の中心位置
+}
+
+const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
     // 各種ステート管理
-    const [usersWithPositions, setUsersWithPositions] = useState<UserWithPosition[]>([]); // 町民の位置情報を保存するステート
-    const [rescuePositions, setRescuePositions] = useState<RescuePosition[]>([]); // 救助隊の位置情報を保存するステート
-    const [publicservantPositions, setPublicServantPositions] = useState<PublicServantPosition[]>([]); // 役場職員の位置情報を保存するステート
+    const [usersWithPositions, setUsersWithPositions] = useState<UserWithPosition[]>([]);
+    const [rescuePositions, setRescuePositions] = useState<RescuePosition[]>([]);
+    const [publicservantPositions, setPublicServantPositions] = useState<PublicServantPosition[]>([]);
+    const [isRescueView, setIsRescueView] = useState<boolean>(false);
+    const [isPublicServantView, setIsPublicServantView] = useState<boolean>(false);
+    const [selectedUserPosition, setSelectedUserPosition] = useState<{ lat: number, lng: number } | null>(null);
+
     const [searchTerm, setSearchTerm] = useState<string>(""); // 検索キーワードを保存するステート
     const [filterDistrict, setFilterDistrict] = useState<string>(""); // 地区のフィルターを保存するステート
-    const [mapCenter, setMapCenter] = useState<{ lat: number, lng: number }>(center); // 地図の中心位置を保存するステート
-    const [isSafetyView, setIsSafetyView] = useState<boolean>(false); // 安否情報を表示するかどうかのフラグ
-    const [isMapView, setIsMapView] = useState<boolean>(false); // 地図表示フラグ
-    const [isRescueView, setIsRescueView] = useState<boolean>(false); // 救助隊表示フラグ
-    const [isPublicServantView, setIsPublicServantView] = useState<boolean>(false); // 役場職員表示フラグ
-    const [selectedUserPosition, setSelectedUserPosition] = useState<{ lat: number, lng: number } | null>(null); // 選択されたユーザーの位置
+
+
+    const mapContainerStyle = {
+        width: '100vw',
+        height: '100vh',
+    };
+
 
     // 町民の位置情報を取得する非同期関数
     const fetchUsersWithPositionsData = async () => {
@@ -116,12 +111,6 @@ const ListApp: React.FC = () => {
         }
     };
 
-    // ユーザーをクリックしたときに位置情報をセットする関数
-    const handleUserClick = async (latitude: number, longitude: number) => {
-        setSelectedUserPosition({ lat: latitude, lng: longitude }); // 選択されたユーザーの位置を保存
-        setMapCenter({ lat: latitude, lng: longitude }); // 地図の中心をクリックされた位置に変更
-        setIsMapView(true); // 地図ビューに切り替え
-    };
 
     // コンポーネントがマウントされたときに位置情報データを取得
     useEffect(() => {
@@ -130,40 +119,12 @@ const ListApp: React.FC = () => {
         fetchPublicServantPositionsData(); // 役場職員の位置情報を取得
     }, []);
 
-    // 検索ボックスの値が変更されたときのハンドラ
-    const handleSearchChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setSearchTerm(event.target.value); // 検索キーワードをステートに保存
-    };
 
-    // 地区で安否情報をフィルタリングする関数
-    const handleFilterByDistrictSafety = (district: string) => {
-        setFilterDistrict(district); // フィルターとして選択された地区をステートに保存
-        setIsSafetyView(true); // 安否ビューを有効にする
-        setIsMapView(false); // 地図ビューを無効にする
-        setIsRescueView(false); // 救助隊ビューを無効にする
-        setIsPublicServantView(false); // 役場職員ビューを無効にする
-    };
-
-    // 地区で地図を表示する関数
-    const handleFilterByDistrictMap = (district: string) => {
-        setFilterDistrict(district); // フィルターとして選択された地区をステートに保存
-        setIsSafetyView(false); // 安否ビューを無効にする
-        setIsMapView(true); // 地図ビューを有効にする
-        setIsRescueView(false); // 救助隊ビューを無効にする
-        setIsPublicServantView(false); // 役場職員ビューを無効にする
-
-        const location = mapchange[district]; // 選択された地区の中心座標を取得
-        if (location) {
-            setMapCenter(location); // 地図の中心を変更
-        }
-    };
-
-    // 検索条件と地区フィルターに基づいてユーザーをフィルタリングする
     const filteredUsers = usersWithPositions.filter(user => {
         return (
             (!filterDistrict || user.district === filterDistrict) && // 地区フィルターの適用
             ((user.name && user.name.toLowerCase().includes(searchTerm.toLowerCase())) || // 名前で検索
-                (user.safety && user.safety.toLowerCase().includes(searchTerm.toLowerCase()))) // 安否情報で検索
+                (user.safety && typeof user.safety === 'string' && user.safety.toLowerCase().includes(searchTerm.toLowerCase()))) // 安否情報で検索
         );
     });
 
@@ -200,38 +161,6 @@ const ListApp: React.FC = () => {
 
     return (
         <div>
-            {/* 検索ボックス */}
-            <div className="name-order">
-                <label htmlFor="search">検索: </label>
-                <input
-                    id="search"
-                    type="text"
-                    value={searchTerm}
-                    onChange={handleSearchChange}
-                    placeholder="検索"
-                />
-            </div>
-
-            {/* 地区ごとの安否フィルター */}
-            <div className="safetydistrict">
-                <label>安否</label>
-                <button onClick={() => handleFilterByDistrictSafety("神領")}>神領</button>
-                <button onClick={() => handleFilterByDistrictSafety("上分")}>上分</button>
-                <button onClick={() => handleFilterByDistrictSafety("下分")}>下分</button>
-                <button onClick={() => handleFilterByDistrictSafety("阿野")}>阿野</button>
-                <button onClick={() => handleFilterByDistrictSafety("鬼籠野")}>鬼籠野</button>
-            </div>
-
-            {/* 地区ごとの地図フィルター */}
-            <div className="mapdistrict">
-                <label>地図</label>
-                <button onClick={() => handleFilterByDistrictMap("神領")}>神領</button>
-                <button onClick={() => handleFilterByDistrictMap("上分")}>上分</button>
-                <button onClick={() => handleFilterByDistrictMap("下分")}>下分</button>
-                <button onClick={() => handleFilterByDistrictMap("阿野")}>阿野</button>
-                <button onClick={() => handleFilterByDistrictMap("鬼籠野")}>鬼籠野</button>
-            </div>
-
             {/* 救助隊と役場職員の表示切り替えボタン */}
             <div>
                 <button onClick={handleToggleRescueView}>
@@ -241,37 +170,9 @@ const ListApp: React.FC = () => {
                     役場職員を表示
                 </button>
             </div>
-
-            {/* 安否情報のテーブル表示 */}
-            {isSafetyView && (
-                <table border={1}>
-                    <thead>
-                    <tr>
-                        <th className="label">Name</th>
-                        <th className="label">Safety</th>
-                    </tr>
-                    </thead>
-                    <tbody className="citizentable">
-                    {filteredUsers.length > 0 ? (
-                        filteredUsers.map(user => (
-                            <tr key={user.id} onClick={() => handleUserClick(user.latitude, user.longitude)}>
-                                <td className="username">{user.name}</td>
-                                <td className="usersafety">{user.safety}</td>
-                            </tr>
-                        ))
-                    ) : (
-                        <tr>
-                            <td colSpan={2}>該当する町民は見つかりません。</td>
-                        </tr>
-                    )}
-                    </tbody>
-                </table>
-            )}
-
-            {/* Google Mapの表示 */}
-            {isMapView && (
+            <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
                 <GoogleMap
-                    mapContainerStyle = {containerStyle} // マップのスタイル
+                    mapContainerStyle = {mapContainerStyle} // マップのスタイル
                     center = {selectedUserPosition || mapCenter} // マップの中心
                     zoom = {15} // ズームレベル
                 >
@@ -317,9 +218,9 @@ const ListApp: React.FC = () => {
                         ))
                     )}
                 </GoogleMap>
-            )}
+            </LoadScript>
         </div>
     );
 };
 
-export default ListApp;
+export default MapView;

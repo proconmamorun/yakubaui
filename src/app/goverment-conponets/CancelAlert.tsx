@@ -1,7 +1,7 @@
 import React, { useEffect, useState, useCallback} from 'react';
 import { collection, deleteDoc, doc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
-import 'sendAlert';
+import '@/app/goverment-conponets/SendAlert';
 
 const CancelAlert: React.FC = () => {
 const handleDelete = async (id: string) => {

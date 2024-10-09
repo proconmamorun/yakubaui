@@ -1,3 +1,4 @@
+/*
 import React, { useEffect, useState, useCallback} from 'react';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -43,7 +44,7 @@ const MainApp: React.FC = () => {
 
     const { isLoaded } = useJsApiLoader({
         id: 'google-map-script',
-        googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!
+        googleMapsApiKey: process..env.REACT_APP_GOOGLE_MAPS_API_KEY!
     });
 
     //ピンの情報を取得
@@ -153,3 +154,5 @@ const MainApp: React.FC = () => {
 
 export default MainApp;
 export { containerStyle, center };
+
+ */
