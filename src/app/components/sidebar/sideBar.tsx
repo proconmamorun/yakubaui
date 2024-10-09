@@ -1,9 +1,7 @@
 import React from 'react';
-<<<<<<< HEAD
+
 import { useLocation } from '../maps/LocationContext';
-=======
 // import { useMap } from '../maps/MapContext';
->>>>>>> d5b185f (危険度表示（dangerous）を追加したっぴ)
 import './sideBarDesign.css'
 
 // chatGPTなのでわからん
@@ -14,14 +12,8 @@ interface SideBarProps {
 
 
 const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
-
-<<<<<<< HEAD
 	//useLocationからMap用の関数を読み込む
 	const { setCenter } = useLocation();
-=======
-	//useMapからMap用の関数を読み込む
-	// const { setMapCenter } = useMap();
->>>>>>> d5b185f (危険度表示（dangerous）を追加したっぴ)
 
 	// 地区ごとの地図の中央座標を定義
 	const mapchange: { [key: string]: { lat: number; lng: number } } = {
@@ -37,11 +29,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
 		//Mapの中心を引数に応じて動かす
 		const location = mapchange[district];
 		if (location) {
-<<<<<<< HEAD
 			setCenter(location);
-=======
-			// setMapCenter(location);
->>>>>>> d5b185f (危険度表示（dangerous）を追加したっぴ)
 		}
 	};
 
