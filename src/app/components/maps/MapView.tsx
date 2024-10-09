@@ -41,15 +41,14 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
     const [publicservantPositions, setPublicServantPositions] = useState<PublicServantPosition[]>([]);
     const [isRescueView, setIsRescueView] = useState<boolean>(false);
     const [isPublicServantView, setIsPublicServantView] = useState<boolean>(false);
-    const [selectedUserPosition, setSelectedUserPosition] = useState<{ lat: number, lng: number } | null>(null);
 
-    const [searchTerm, setSearchTerm] = useState<string>(""); // 検索キーワードを保存するステート
-    const [filterDistrict, setFilterDistrict] = useState<string>(""); // 地区のフィルターを保存するステート
+    const [searchTerm] = useState<string>(""); // 検索キーワードを保存するステート
+    const [filterDistrict] = useState<string>(""); // 地区のフィルターを保存するステート
 
 
     const mapContainerStyle = {
-        width: '100vw',
-        height: '100vh',
+        width: '70vw',
+        height: '80vh',
     };
 
 
@@ -173,9 +172,10 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
             <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
                 <GoogleMap
                     mapContainerStyle = {mapContainerStyle} // マップのスタイル
-                    center = {selectedUserPosition || mapCenter} // マップの中心
+                    center = {mapCenter} // マップの中心
                     zoom = {15} // ズームレベル
-                >
+                    >
+
                     {/* 町民の位置に基づくマーカー */}
                     {usersWithPositions.map((position) => (
                         position.safety === "無事"

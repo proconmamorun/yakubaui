@@ -9,9 +9,7 @@ interface SideBarProps {
 }
 
 
-
-
-const SideBar: React.FC<SideBarProps> = ({ setMode, setArea }) => {
+const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
 
 	//useMapからMap用の関数を読み込む
 	const { setMapCenter } = useMap();
@@ -26,7 +24,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea }) => {
 	};
 
 	// 地図の中心を変化する関数
-	const handleMap = (district: string) => {
+	const setArea = (district: string) => {
 		//Mapの中心を引数に応じて動かす
 		const location = mapchange[district];
 		if (location) {
@@ -43,31 +41,26 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea }) => {
 
 			  <div className={"white-area"}>
 				  <button onClick={() => {
-					  handleMap('神領');
 					  setMode('map');
 					  setArea('神領')
 				  }}>神領
 				  </button>
 				  <button onClick={() => {
-					  handleMap('上分');
 					  setMode('map');
 					  setArea('上分')
 				  }}>上分
 				  </button>
 				  <button onClick={() => {
-					  handleMap('下分');
 					  setMode('map');
 					  setArea('下分')
 				  }}>下分
 				  </button>
 				  <button onClick={() => {
-					  handleMap('阿野');
 					  setMode('map');
 					  setArea('阿野')
 				  }}>阿野
 				  </button>
 				  <button onClick={() => {
-					  handleMap('鬼籠野');
 					  setMode('map');
 					  setArea('鬼籠野')
 				  }}>鬼籠野
