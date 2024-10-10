@@ -15,13 +15,9 @@ const Map: React.FC<MapProps> = ({ area }) => {
 			<p>Map</p>
 			<p>現在のエリア: {area}</p>
 			<div className="container">
-				<div className="grayBox">
-					<MapView
-						mapCenter={center}
-					/>
-				</div>
-				<div className="greenBox1"></div>
-				<div className="greenBox2"></div>
+				<MapView
+					mapCenter={center}
+				/>
 			</div>
 		</div>
 	);

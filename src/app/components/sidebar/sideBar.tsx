@@ -1,10 +1,10 @@
 import React from 'react';
-import { useLocation,  } from '../maps/LocationContext';
+import { useLocation } from '../maps/LocationContext';
 import './sideBarDesign.css'
 
 // chatGPTなのでわからん
 interface SideBarProps {
-    setMode: (mode: 'home' | 'map' | 'SafeCheck' | 'newsBelt') => void; // モード切り替え用の関数を受け取る
+    setMode: (mode: 'home' | 'map' | 'SafeCheck' | 'newsBelt' | 'Dangerous') => void; // モード切り替え用の関数を受け取る
     setArea: (area: string) => void; 
 }
 
@@ -101,7 +101,9 @@ const SideBar: React.FC<SideBarProps> = ({ setMode }) => {
 				  setMode('newsBelt')
 			  }} className={"white-button"}>帯表示
 			  </button>
-			  <button className={"white-button"}>危険を特定</button>
+			  <button onClick={() => {
+				  setMode('Dangerous')
+			  }} className={"white-button"}>危険を特定</button>
 		  </div>
 		  <div className="greenBox1"></div>
 		  <div className="greenBox2"></div>
