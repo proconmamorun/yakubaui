@@ -1,11 +1,12 @@
 import React from 'react'; 
 import './newsBeltDesign.css';
+import { db } from '../firebase/firebaseConfig';
 
 interface MapProps {
 	area: string; // areaを受け取る
 }
 
-const newBelt: React.FC<MapProps> = ({ area }) => {
+const newsBelt: React.FC<MapProps> = ({ area }) => {
 	return (
 		<div>
 			<p>Map</p>
@@ -33,4 +34,4 @@ const newBelt: React.FC<MapProps> = ({ area }) => {
 	);
 }
 
-export default newBelt;
+export default newsBelt;

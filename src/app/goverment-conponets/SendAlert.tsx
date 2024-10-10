@@ -17,15 +17,15 @@ const SendAlert = async (action: 'save' | 'delete', message: string, id?: string
     } catch (error) {
         console.log("保存に失敗しました");
     }
-}else if (action === 'delete' && id) {
-    try {
-        const alertDocRef = doc(db, "alert", id);
-        await deleteDoc(alertDocRef);
-        console.log("削除しました");
-    }catch (error) {
-        console.error("Error deleting positions: ", error);
-        console.log("削除に失敗しました");
-    }
+	}else if (action === 'delete' && id) {
+		try {
+			const alertDocRef = doc(db, "alert", id);
+			await deleteDoc(alertDocRef);
+			console.log("削除しました");
+		}catch (error) {
+			console.error("Error deleting positions: ", error);
+			console.log("削除に失敗しました");
+		}
     }
 };
 
