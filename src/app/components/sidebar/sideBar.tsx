@@ -1,5 +1,5 @@
 import React from 'react';
-import { useLocation } from '../maps/LocationContext';
+import { useLocation,  } from '../maps/LocationContext';
 import './sideBarDesign.css'
 
 // chatGPTなのでわからん
