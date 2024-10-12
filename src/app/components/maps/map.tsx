@@ -12,8 +12,6 @@ const Map: React.FC<MapProps> = ({ area }) => {
 
 	return (
 		<div>
-			<p>Map</p>
-			<p>現在のエリア: {area}</p>
 			<div className="container">
 				<MapView
 					mapCenter={center}
