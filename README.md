@@ -38,3 +38,6 @@ https://mui.com/
 ```typescript
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
 ```
+### 緊急通報の部分！！
+「最終確認」がなっちゃんのコードから確認できませんでした。
+プロコンとしての優先度が低いため、消します。
