@@ -12,16 +12,18 @@ import Dangerous from './components/dangerous/dangerous';
 import { LocationProvider } from './components/maps/LocationContext';
 
 const Page: React.FC = () => {
-	const [mode, setMode] = useState<'home' | 'map' | 'SafeCheck' | 'newsBelt' | 'Dangerous'>('home');  // 'home' または 'map' の値を持つ
-	const [area, setArea] = useState<string>("");
+    const [mode, setMode] = useState<'home' | 'map' | 'SafeCheck' | 'newsBelt' | 'Dangerous'>('home');
+    const [area, setArea] = useState<string>("");
+    const [filterDistrict, setFilterDistrict] = useState<string>("");
+
     return (
         <div className={"main-container"}>
             <LocationProvider>
-                <SideBar setMode={setMode} setArea={setArea}/>
+                <SideBar setMode={setMode} setArea={setArea} setFilterDistrict={setFilterDistrict} />
                 <div className={"homes"}>
                     {mode === 'home' && <Home />}
                     {mode === 'map' && <Map area={area}/>}
-                    {mode === 'SafeCheck' && <SafeCheck area={area}/>}
+                    {mode === 'SafeCheck' && <SafeCheck area={area} filterDistrict={filterDistrict} />}
                     {mode === 'newsBelt' && <NewsBelt area={area}/>}
                     {mode === 'Dangerous' && <Dangerous area={area}/>}
                 </div>
