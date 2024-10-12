@@ -21,9 +21,10 @@
   background-color: #ffffff;
   height: 171px;
   left: 20px;
-  position: relative;
-  top: 70px;
-  width: 900px;
+	position: relative;
+	top: 70px;
+    width: 900px;
+	color: #000000; 
 }
 
 .greenBox1 {
@@ -35,14 +36,6 @@
   background-color: #98CB9A; /* 灰色の四角形 */
 }
 
-.greenBox2 {
-  width: 200px;
-  height: 30px;
-  position: absolute; /* 絶対位置に配置 */
-  top: 130px;
-  left: 0px;
-  background-color: #98CB9A; /* 灰色の四角形 */
-}
 .nyuuryokutext{
   font-size: 20px;
   color: rgb(62, 62, 62);
@@ -51,25 +44,6 @@
   position: absolute;
   top: 30px;
   right: 700px;
-}
-.finalcheck {
-  background-color: #b4dfc9;
-  border-radius: 10px;
-  height: 260px;
-  overflow: hidden;
-  position: absolute;
-  top: 400px;
-  right: 30px;
-  width: 940px;
-}
-
-.finalchecktext{
-  font-size: 20px;
-  color: rgb(62, 62, 62);
-  font-weight: 500;
-  position: absolute;
-  top: 370px;
-  right: 870px;
 }
 
 .box {

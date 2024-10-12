@@ -19,6 +19,7 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
     };
 
     // メッセージをFirestoreから削除
+	// たぶんいらないけど保留中
     const handleDelete = async () => {
         if (alertId) {
             await SendAlert('delete', '', alertId);
@@ -32,8 +33,6 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
             <p>現在のエリア: {area}</p>
             <div className="container">
                 <div className="container">
-                    <div className="greenBox1"></div>
-                    <div className="greenBox2"></div>
                     <div className="frame">
                         <div className="nyuuryokutext">文を入力してください。</div>
                         <input
@@ -43,15 +42,10 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                             onChange={(e) => setMessage(e.target.value)} // 入力値を更新
                         />
                     </div>
-                    <div className="finalcheck"></div>
-                    <div className="finalchecktext">最終確認</div>
                     <div className="box">
                         <div className="group">
                             <div className="divwrapper">
                                 <button onClick={handleSend} className="textwrapper">町民側へ送信</button>
-                            </div>
-                            <div className="divwrapper">
-                                <button onClick={handleDelete} className="textwrapper">削除</button>
                             </div>
                         </div>
                     </div>
@@ -60,6 +54,5 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
         </div>
     );
 }
-
 
 export default NewsBelt;
