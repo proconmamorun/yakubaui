@@ -1,9 +1,9 @@
 .container {
   display: flex;
-  flex-direction: column; /* フレームとボタンを縦に並べる */
+  flex-direction: column;
   align-items: center;
   height: 100vh;
-  background-color: white;
+  background-color: transparent; /* 背景を透明にする */
 }
 
 .frame {
@@ -23,7 +23,8 @@
   position: relative;
   top: 30px;
   width: 700px;
-	color: #000000;
+  color: #000000;
+  border: none; /* 入力ボックスの枠線を消す */
 }
 
 .nyuuryokutext {
@@ -34,40 +35,18 @@
   top: 10px;
 }
 
-.box {
-  position: relative;
-  margin-top: 20px; /* フレームとの間にスペースを追加 */
-  width: 150px;
-  height: 40px;
-}
-
-.box .group {
-  background-color: #ffffff;
-  border: 3px solid;
-  border-color: #2fa268;
-  border-radius: 10px;
-  height: 100%;
-  width: 100%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.div-wrapper {
-  height: 36px;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
 .textwrapper {
   color: #2fa268;
   font-size: 20px;
   font-weight: 700;
   text-align: center;
+  background-color: #ffffff;
+  border: 3px solid #2fa268;
+  border-radius: 10px;
+  height: 50px;
+  width: 200px;
+  margin-top: 20px;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }

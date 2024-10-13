@@ -31,14 +31,7 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                         onChange={(e) => setMessage(e.target.value)} // 入力値を更新
                     />
                 </div>
-                {/* 送信ボタンをframeの外に移動 */}
-                <div className="box">
-                    <div className="group">
-                        <div className="div-wrapper">
-                            <button onClick={handleSend} className="textwrapper">町民側へ送信</button>
-                        </div>
-                    </div>
-                </div>
+				<button onClick={handleSend} className="textwrapper">町民側へ送信</button>
             </div>
         </div>
     );
