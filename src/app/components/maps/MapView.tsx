@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback} from 'react';
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
-import { collection, getDocs, addDoc } from 'firebase/firestore';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
+import { collection, getDocs, addDoc, deleteDoc, doc } from 'firebase/firestore'; // deleteDoc をインポート
 import { db } from '../firebase/firebaseConfig';
 import { fetchRescuePositionsData, fetchPublicServantPositionsData } from '../positionsService';
 
@@ -50,7 +50,12 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
         latitude: 0,
         longitude: 0,
         dangerlevel: 0,
-        dangerkinds: 0
+    });
+
+    // Google Maps API ローダー
+    const { isLoaded } = useJsApiLoader({
+        id: 'google-map-script',
+        googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string, // 環境変数からAPIキーを取得
     });
 
     // 位置情報を取得
@@ -117,6 +122,16 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
         }
     }, [figure]);
 
+    // ピンをクリックして削除する処理
+    const handleMarkerClick = async (id: string) => {
+        try {
+            await deleteDoc(doc(db, "positions", id)); // Firestoreから削除
+            setPositions(positions.filter(position => position.id !== id)); // ローカルステートから削除
+        } catch (error) {
+            console.error("Error removing document: ", error);
+        }
+    };
+
     return (
         <div className={"container"}>
             <div className={"buttons"}>
@@ -143,7 +158,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
             </div>
 
             <div className={"maps"}>
-                <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
+                {isLoaded && (
                     <GoogleMap
                         mapContainerStyle={{ width: '70vw', height: '80vh' }}
                         center={mapCenter}
@@ -159,6 +174,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                                     fontSize: "16px",
                                     color: "black"
                                 }}
+                                onClick={() => handleMarkerClick(position.id)} // マーカーをクリックして削除
                             />
                         ))}
 
@@ -194,7 +210,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                             />
                         ))}
                     </GoogleMap>
-                </LoadScript>
+                )}
 
                 <div className={"publish-container"}>
                     <button className={"publish"} onClick={() => setIsPublished(!isPublished)}>

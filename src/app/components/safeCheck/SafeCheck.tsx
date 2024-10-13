@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { GoogleMap, Marker, LoadScript } from '@react-google-maps/api';
+import { GoogleMap, Marker, useJsApiLoader } from '@react-google-maps/api';
 import { fetchUsersWithPositionsData, fetchRescuePositionsData, fetchPublicServantPositionsData } from '../positionsService';
 import "./SafeCheckDesign.css";
 
@@ -14,10 +14,8 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {Button} from "@mui/base";
+import { Button } from '@mui/material'; 
 import SearchIcon from '@mui/icons-material/Search';
-
-
 
 // SafeCheckコンポーネントの引数で使用するインターフェース
 interface SafeCheckProps {
@@ -112,6 +110,12 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 	const [isMapView, setIsMapView] = useState<boolean>(false);
 	const [filter, setFilter] = useState<string>('all');
 
+	// Google Maps API ローダー
+	const { isLoaded } = useJsApiLoader({
+		id: 'google-map-script',
+		googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string, // 環境変数からAPIキーを取得
+	});
+
 	console.log(area);
 
 	// データのフェッチ処理
@@ -167,10 +171,10 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 	// 町民のマーカーアイコンを安否情報に基づいて設定
 	const getMarkerIcon = (safety: string) => {
 		if (typeof google === 'undefined' || !google.maps) {
-			// Google Mapsがまだ準備できていない場合に備えて、フォールバックアイコンを返す
-			return null;
+			// Google Mapsがまだ準備できていない場合はundefinedを返す
+			return undefined;
 		}
-
+	
 		const color = safety === "救助が必要" ? 'red' : safety === "無事" ? 'green' : 'white';
 		return {
 			path: google.maps.SymbolPath.CIRCLE,
@@ -181,8 +185,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 			strokeWeight: 0
 		};
 	};
-
-
+	
 
 	return (
 		<div className={"safe-container"}>
@@ -257,27 +260,25 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 			</TableContainer>
 
 			{/* 地図表示 */}
-			{isMapView && mapCenter && (
-				<LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-					<GoogleMap mapContainerStyle={{width: '70vw', height: '60vh'}} center={mapCenter} zoom={20}>
-						{usersWithPositions.map(position => (
-							<Marker
-								key={position.id}
-								position={{lat: position.latitude, lng: position.longitude}}
-								icon={getMarkerIcon(position.safety ?? "")}
-							/>
-						))}
-						{/* 救助隊のマーカー（無条件表示） */}
-						{rescuePositions.map(rescue => (
-							<Marker key={rescue.id} position={{lat: rescue.latitude, lng: rescue.longitude}}/>
-						))}
-						{/* 役場職員のマーカー（無条件表示） */}
-						{publicServantPositions.map(publicServant => (
-							<Marker key={publicServant.id}
-									position={{lat: publicServant.latitude, lng: publicServant.longitude}}/>
-						))}
-					</GoogleMap>
-				</LoadScript>
+			{isMapView && mapCenter && isLoaded && (
+				<GoogleMap mapContainerStyle={{width: '70vw', height: '60vh'}} center={mapCenter} zoom={20}>
+					{usersWithPositions.map(position => (
+						<Marker
+							key={position.id}
+							position={{lat: position.latitude, lng: position.longitude}}
+							icon={getMarkerIcon(position.safety ?? "")}
+						/>
+					))}
+					{/* 救助隊のマーカー（無条件表示） */}
+					{rescuePositions.map(rescue => (
+						<Marker key={rescue.id} position={{lat: rescue.latitude, lng: rescue.longitude}}/>
+					))}
+					{/* 役場職員のマーカー（無条件表示） */}
+					{publicServantPositions.map(publicServant => (
+						<Marker key={publicServant.id}
+								position={{lat: publicServant.latitude, lng: publicServant.longitude}}/>
+					))}
+				</GoogleMap>
 			)}
 		</div>
 	);
