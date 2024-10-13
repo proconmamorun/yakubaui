@@ -7,6 +7,15 @@ import "./SafeCheckDesign.css";
 import { Input as BaseInput } from '@mui/base/Input';
 import { styled, Theme } from '@mui/system';
 import { ToggleButton, ToggleButtonGroup } from '@mui/material';
+import Table from '@mui/material/Table';
+import TableBody from '@mui/material/TableBody';
+import TableCell from '@mui/material/TableCell';
+import TableContainer from '@mui/material/TableContainer';
+import TableHead from '@mui/material/TableHead';
+import TableRow from '@mui/material/TableRow';
+import Paper from '@mui/material/Paper';
+import {Button} from "@mui/base";
+import SearchIcon from '@mui/icons-material/Search';
 
 
 
@@ -208,37 +217,44 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 			</ToggleButtonGroup>
 
 			{/* 町民の安否情報テーブル */}
-			<table>
-				<thead>
-				<tr>
-					<th className="name">Name</th>
-					<th className="safety">Safety</th>
-					<th className="position">Position</th>
-				</tr>
-				</thead>
-				<tbody className="citizentable">
-				{filteredUsers.length > 0 ? (
-					filteredUsers.map(user => (
-						<tr key={user.id}>
-							<td className="username">{user.name ?? '名前なし'}</td>
-							{/* 名前がない場合のデフォルト値 */}
-							<td className="usersafety">{user.safety ?? '不明'}</td>
-							{/* 安否がない場合のデフォルト値 */}
-							<td className="userposition">
-								緯度{user.latitude}, 経度{user.longitude}
-								<button onClick={() => handleUserClick(user.latitude, user.longitude)}>
-									位置情報
-								</button>
-							</td>
-						</tr>
-					))
-				) : (
-					<tr>
-						<td colSpan={3}>該当する町民は見つかりません。</td>
-					</tr>
-				)}
-				</tbody>
-			</table>
+			<TableContainer component={Paper}>
+				<Table>
+					<TableHead>
+						<TableRow>
+							<TableCell className="name">Name</TableCell>
+							<TableCell className="safety">Safety</TableCell>
+							<TableCell className="position">Position</TableCell>
+						</TableRow>
+					</TableHead>
+					<TableBody className="citizentable">
+						{filteredUsers.length > 0 ? (
+							filteredUsers.map((user) => (
+								<TableRow key={user.id}>
+									<TableCell className="username">{user.name ?? '名前なし'}</TableCell>
+									{/* 名前がない場合のデフォルト値 */}
+									<TableCell className="usersafety">{user.safety ?? '不明'}</TableCell>
+									{/* 安否がない場合のデフォルト値 */}
+									<TableCell className="userposition">
+										緯度 {user.latitude}, 経度 {user.longitude}
+										<Button
+											variant="contained"
+											onClick={() => handleUserClick(user.latitude, user.longitude)}
+											size="small"
+											sx={{ ml: 2 }}
+										>
+											位置情報
+										</Button>
+									</TableCell>
+								</TableRow>
+							))
+						) : (
+							<TableRow>
+								<TableCell colSpan={3}>該当する町民は見つかりません。</TableCell>
+							</TableRow>
+						)}
+					</TableBody>
+				</Table>
+			</TableContainer>
 
 			{/* 地図表示 */}
 			{isMapView && mapCenter && (

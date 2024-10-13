@@ -50,7 +50,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
         fetchData();
     }, []);
 
-    //町民のマーカーをカスタムで定義
+    //町民のマーカーを定義する
     const getMarkerIcon = (safety: string) => {
         let color;
         if (safety === "救助が必要") {
@@ -71,25 +71,52 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
         };
     };
 
+    document.addEventListener('DOMContentLoaded', () => {
+        const toggles = document.querySelectorAll('.toggle');
+
+        toggles.forEach((toggle) => {
+            toggle.addEventListener('click', (e: Event) => {
+                e.preventDefault(); // The flicker is a codepen thing
+                (e.currentTarget as HTMLElement).classList.toggle('toggle-on');
+            });
+        });
+    });
+
     return (
-        <div>
+        <div className={"container"}>
             <button onClick={() => setIsRescueView(!isRescueView)}>救助隊を表示</button>
+            <div className={`toggle ${isRescueView ? 'toggle-on' : ''}`} onClick={() => setIsRescueView(!isRescueView)}>
+                <div className='toggle-text-off'>OFF</div>
+                <div className='glow-comp'></div>
+                <div className='toggle-button'></div>
+                <div className='toggle-text-on'>ON</div>
+            </div>
             <button onClick={() => setIsPublicServantView(!isPublicServantView)}>役場職員を表示</button>
 
+
+            <div className='toggle' id='switch'>
+                <div className='toggle-text-off'>OFF</div>
+                <div className='glow-comp'></div>
+                <div className='toggle-button'></div>
+                <div className='toggle-text-on'>ON</div>
+            </div>
+
+
             <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-                <GoogleMap mapContainerStyle={{ width: '70vw', height: '80vh' }} center={mapCenter} zoom={15}>
+                <GoogleMap mapContainerStyle={{width: '70vw', height: '80vh'}} center={mapCenter} zoom={15}>
                     {usersWithPositions.map((position) => (
                         <Marker
                             key={position.id}
-                            position={{ lat: position.latitude, lng: position.longitude }}
+                            position={{lat: position.latitude, lng: position.longitude}}
                             icon={getMarkerIcon(position.safety ?? "")}
                         />
                     ))}
                     {isRescueView && rescuePositions.map((rescue) => (
-                        <Marker key={rescue.id} position={{ lat: rescue.latitude, lng: rescue.longitude }} />
+                        <Marker key={rescue.id} position={{lat: rescue.latitude, lng: rescue.longitude}}/>
                     ))}
                     {isPublicServantView && publicServantPositions.map((publicServant: PublicServantPosition) => (
-                        <Marker key={publicServant.id} position={{ lat: publicServant.latitude, lng: publicServant.longitude }} />
+                        <Marker key={publicServant.id}
+                                position={{lat: publicServant.latitude, lng: publicServant.longitude}}/>
                     ))}
                 </GoogleMap>
             </LoadScript>
