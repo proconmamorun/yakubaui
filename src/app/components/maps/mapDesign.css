@@ -116,3 +116,67 @@
 .toggle-on .toggle-text-off {
   color: rgba(0, 0, 0, 0);  /* ON時はOFFの文字を消す */
 }
+
+
+.publish-container {
+  position: absolute;
+  top: calc(80vh - 20px);
+  margin-left: 20px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+}
+
+.publish {
+  width: 150px;
+  height: 100px;
+  color: #2FA268;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 10px;
+  border: 5px solid #2FA268;
+  background-color: white;
+  z-index: 1;
+}
+
+.publish-buttons > button{
+  background-color: #2FA268;
+  font-size: large;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.publish-buttons-off {
+  display: none;
+  transition: color 0.3s 0.15s;
+}
+
+.publish-buttons-on {
+  display: block;
+  transition: color 0.3s 0.15s;
+}
+
+.publish-buttons {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.3s ease;
+}
+
+.publish-buttons-on {
+  display: block; /* 必要であれば */
+  max-height: 200px; /* 必要に応じて調整 */
+  opacity: 1;
+}
+
+.publish-buttons-off {
+  max-height: 0;
+  opacity: 0;
+}
