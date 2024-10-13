@@ -259,7 +259,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 			{/* 地図表示 */}
 			{isMapView && mapCenter && (
 				<LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
-					<GoogleMap mapContainerStyle={{width: '70vw', height: '80vh'}} center={mapCenter} zoom={20}>
+					<GoogleMap mapContainerStyle={{width: '70vw', height: '60vh'}} center={mapCenter} zoom={20}>
 						{usersWithPositions.map(position => (
 							<Marker
 								key={position.id}

@@ -84,23 +84,28 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
     return (
         <div className={"container"}>
-            <button onClick={() => setIsRescueView(!isRescueView)}>救助隊を表示</button>
-            <div className={`toggle ${isRescueView ? 'toggle-on' : ''}`} onClick={() => setIsRescueView(!isRescueView)}>
-                <div className='toggle-text-off'>OFF</div>
-                <div className='glow-comp'></div>
-                <div className='toggle-button'></div>
-                <div className='toggle-text-on'>ON</div>
+            <div className={"buttons"}>
+                <div>
+                    <p className={`label ${isRescueView ? 'label-on' : ''}`}>救助</p>
+                    <div className={`toggle ${isRescueView ? 'toggle-on' : ''}`}
+                         onClick={() => setIsRescueView(!isRescueView)}>
+                        <div className='toggle-text-off'>OFF</div>
+                        <div className='glow-comp'></div>
+                        <div className='toggle-button'></div>
+                        <div className='toggle-text-on'>ON</div>
+                    </div>
+                </div>
+                <div>
+                    <p className={`label ${isPublicServantView ? 'label-on' : ''}`}>役場</p>
+                    <div className={`toggle ${isPublicServantView ? 'toggle-on' : ''}`}
+                         onClick={() => setIsPublicServantView(!isPublicServantView)}>
+                        <div className='toggle-text-off'>OFF</div>
+                        <div className='glow-comp'></div>
+                        <div className='toggle-button'></div>
+                        <div className='toggle-text-on'>ON</div>
+                    </div>
+                </div>
             </div>
-            <button onClick={() => setIsPublicServantView(!isPublicServantView)}>役場職員を表示</button>
-
-
-            <div className='toggle' id='switch'>
-                <div className='toggle-text-off'>OFF</div>
-                <div className='glow-comp'></div>
-                <div className='toggle-button'></div>
-                <div className='toggle-text-on'>ON</div>
-            </div>
-
 
             <LoadScript googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}>
                 <GoogleMap mapContainerStyle={{width: '70vw', height: '80vh'}} center={mapCenter} zoom={15}>

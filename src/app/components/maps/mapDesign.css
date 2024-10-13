@@ -1,89 +1,105 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: flex-start;
   height: 100vh; /* 画面全体の高さに合わせる */
   background-color: white; /* 背景色を白に設定 */
 }
 
-
-#switch{
-  top: 50%;
-  left: 50%;
-  width: 75px;
-  height: 40px;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin: 20px;
 }
 
-.toggle{
-  position: absolute;
-  border: 2px solid #444249;
+
+.label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1em;
+  padding-bottom: 2px;
+  color: #757471;
+  transition: all 0.5s 0.15s ease-out;
+  text-align: center;
+}
+
+.label-on {
+  color: #E69F00;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+
+
+#switch {
+  top: 50%;
+  left: 50%;
+  width: 75px;  /* トグル全体の幅 */
+  height: 40px; /* トグル全体の高さ */
+  position: relative;
+}
+
+.toggle {
+  position: relative;
+  width: 75px;
+  height: 40px;
+  background-color: #757471;
   border-radius: 20px;
-  -webkit-transition: border-color .6s  ease-out;
-  transition: border-color .6s  ease-out;
+  transition: border-color 0.6s ease-out;
   box-sizing: border-box;
 }
 
-.toggle.toggle-on{
-  border-color: rgba(137, 194, 217, .4);
-  -webkit-transition: all .5s .15s ease-out;
-  transition: all .5s .15s ease-out;
+.toggle.toggle-on {
+  background-color: #E69F00;
+  transition: all 0.5s 0.15s ease-out;
 }
 
-.toggle-button{
+.toggle-button {
   position: absolute;
-  top: 4px;
-  width: 28px;
-  bottom: 4px;
-  right: 39px;
-  background-color: #444249;
-  border-radius: 19px;
-  cursor: pointer;
-  -webkit-transition: all .3s .1s, width .1s, top .1s, bottom .1s;
-  transition: all .3s .1s, width .1s, top .1s, bottom .1s;
-}
-
-.toggle-on .toggle-button{
-  top: 3px;
-  width: 65px;
+  top: 6px;
   bottom: 3px;
-  right: 3px;
-  border-radius: 23px;
-  background-color: #89c2da;
-  box-shadow: 0 0 16px #4b7a8d;
-  -webkit-transition: all .2s .1s, right .1s;
-  transition: all .2s .1s, right .1s;
+  right: 39px;  /* OFF時のボタン位置 */
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s 0.1s;
+  z-index: 1;
 }
 
+.toggle-on .toggle-button {
+  right: 6px;  /* ON時のボタンを右端に */
+  width: 28px; /* ON時でもボタンのサイズを維持 */
+  background-color: #ffffff;
+  box-shadow: 0 0 16px color-mix(in lab, #ffffff, #E69F00);
+}
 
-.toggle-text-on{
+.toggle-text-on {
   position: absolute;
-  top: 0;
+  top: 3px;
   bottom: 0;
-  left: 0;
-  right: 0;
+  left: 10px;  /* ONのときも文字を少し左寄せ */
   line-height: 36px;
   text-align: center;
   font-family: 'Quicksand', sans-serif;
-  font-size: 18px;
-  font-weight: normal;
+  font-size: 14px;
+  font-weight: bold;
   cursor: pointer;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-
-
-  color: rgba(0,0,0,0);
+  user-select: none;
+  color: rgba(0, 0, 0, 0);  /* OFF時は透明 */
+  transition: color 0.3s 0.15s;
 }
 
-.toggle-on .toggle-text-on{
-  color: #3b6a7d;
-  -webkit-transition: color .3s .15s ;
-  transition: color .3s .15s ;
+.toggle-on .toggle-text-on {
+  color: #ffffff;  /* ON時の文字色 */
+  left: 10px;      /* ONの時は文字を少し左に寄せる */
 }
 
-.toggle-text-off{
+.toggle-text-off {
   position: absolute;
-  top: 0;
+  top: 3px;
   bottom: 0;
   right: 6px;
   line-height: 36px;
@@ -91,36 +107,12 @@
   font-family: 'Quicksand', sans-serif;
   font-size: 14px;
   font-weight: bold;
-  -webkit-user-select: none; /* Chrome/Safari */
-  -moz-user-select: none; /* Firefox */
-  -ms-user-select: none; /* IE10+ */
-
+  user-select: none;
   cursor: pointer;
-
-  color: #444249;
+  color: #ffffff;  /* OFF時の文字色 */
+  transition: color 0.3s 0.15s;
 }
 
-.toggle-on .toggle-text-off{
-  color: rgba(0,0,0,0);
-}
-
-/* used for streak effect */
-.glow-comp{
-  position: absolute;
-  opacity: 0;
-  top: 10px;
-  bottom: 10px;
-  left: 10px;
-  right: 10px;
-  border-radius: 6px;
-  background-color: rgba(75, 122, 141, .1);
-  box-shadow: 0 0 12px rgba(75, 122, 141, .2);
-  -webkit-transition: opacity 4.5s 1s;
-  transition: opacity 4.5s 1s;
-}
-
-.toggle-on .glow-comp{
-  opacity: 1;
-  -webkit-transition: opacity 1s;
-  transition: opacity 1s;
+.toggle-on .toggle-text-off {
+  color: rgba(0, 0, 0, 0);  /* ON時はOFFの文字を消す */
 }
