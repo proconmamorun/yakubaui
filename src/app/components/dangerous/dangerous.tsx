@@ -1,6 +1,7 @@
 import React from 'react';
 import './dangerous.css';  // 相対パスでCSSファイルをインポート
 
+
 const Dangerous: React.FC = () => {
     return (
 		<div>
