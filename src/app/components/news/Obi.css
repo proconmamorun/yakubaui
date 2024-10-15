@@ -8,17 +8,18 @@
 }
 
 .obiPreview {
-  background-color: #b4dfc9;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between; /* 子要素を上下に等間隔で配置 */
+  height: 100%; /* 親要素が必要な高さを確保 */
+background-color: #b4dfc9;
   border-radius: 10px;
-  height: 250px;
-  overflow: hidden;
   position: relative;
   margin-top: 20px;
   width: 100%;
   z-index: 1;
 }
 
-/* トップとボトムのテキストを表示するためのスライダー */
 .textSlider, .textSliderBottom {
   position: relative;
   left: 0;
@@ -28,7 +29,6 @@
   align-items: center;
   justify-content: flex-start;
   background-color: #e69f00;
-  height: 60px;
   z-index: 100;
   color: #ffffff;
   font-size: 24px;
@@ -44,26 +44,35 @@
 }
 
 .arrowIcon {
-  width: 56px; /* 矢印アイコンの大きさを大きくする */
-  height: 56px;
+  width: 43px; /* 矢印アイコンの大きさを大きくする */
+  height: 43px;
   margin-right: 5px; /* アイコンとテキストの間隔 */
 }
 
 .warningIcon {
-  width: 30px; /* 警告アイコンの大きさ */
-  height: 30px;
+  width: 36px; /* 警告アイコンの大きさ */
+  height: 36px;
   margin-right: 10px; /* テキストとの間隔 */
 }
 
 .textSlider {
-  top: 0;
+  position: absolute;
+  bottom: 30px; /* 下から10pxに配置 */
 }
 
-.textSliderBottom {
-  bottom: 90px; /* デフォルトの位置 */
+.textSliderBottom {  
+  position: absolute;
+  top: 30px; /* 上から10pxに配置 */
 }
 
 /* 避難ページでのスタイル上書き */
 .evacuationPage .textSliderBottom {
   bottom: 0 !important; /* 避難ページでのみ最下部に配置 */
+}
+
+.mokuzi{
+	color: #000000;
+	font-weight: lighter; /* 太字に設定 */
+	font-size: 20px;
+	margin-top: 20px;
 }

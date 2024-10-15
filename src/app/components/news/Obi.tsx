@@ -62,7 +62,7 @@ export function Obi() {
     return (
 		<div>
 			<div className="obiContainer">
-				<p>最終確認</p>
+				<h2 className="mokuzi">最終確認</h2>
 				<div className= "obiPreview">
 					<div className="textSlider" ref={sliderRef}>
 						<img src="/images/obi-arrow.png" alt="矢印" className="arrowIcon" />

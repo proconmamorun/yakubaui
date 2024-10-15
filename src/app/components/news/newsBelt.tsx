@@ -20,8 +20,6 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
 
     return (
         <div>
-            <p>Map</p>
-            <p>現在のエリア: {area}</p>
             <div className="container">
                 <div className="frame">
                     <div className="nyuuryokutext">文を入力してください。</div>
