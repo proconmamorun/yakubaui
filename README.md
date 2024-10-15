@@ -1,4 +1,4 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+[This](this.md) is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
 
 ## 開発メモ
 
@@ -37,7 +37,3 @@ muiってのはこういうやつ詳しくはドキュメントみて
 https://mui.com/
 ```typescript
 import ToggleButtonGroup from '@mui/material/ToggleButtonGroup';
-```
-### 緊急通報の部分！！
-「最終確認」がなっちゃんのコードから確認できませんでした。
-プロコンとしての優先度が低いため、消します。

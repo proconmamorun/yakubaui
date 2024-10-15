@@ -1,9 +1,9 @@
 .container {
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: flex-start; /* ボタンを右寄せにする */
   height: 100vh;
-  background-color: transparent; /* 背景を透明にする */
+  background-color: transparent;
 }
 
 .frame {

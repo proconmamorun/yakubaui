@@ -1,6 +1,7 @@
 import React, { useState } from 'react'; 
 import './newsBeltDesign.css';
 import SendAlert from './SendAlert';
+import { Obi } from './Obi';
 
 interface MapProps {
 	area: string;
@@ -31,8 +32,9 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                         onChange={(e) => setMessage(e.target.value)} // 入力値を更新
                     />
                 </div>
+				<Obi />
 				<button onClick={handleSend} className="textwrapper">町民側へ送信</button>
-            </div>
+			</div>
         </div>
     );
 }

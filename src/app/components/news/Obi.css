@@ -1,0 +1,69 @@
+.obiContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* ボタンを右寄せにする */
+  background-color: transparent;
+  height: 260px;
+  width: 940px;
+}
+
+.obiPreview {
+  background-color: #b4dfc9;
+  border-radius: 10px;
+  height: 250px;
+  overflow: hidden;
+  position: relative;
+  margin-top: 20px;
+  width: 100%;
+  z-index: 1;
+}
+
+/* トップとボトムのテキストを表示するためのスライダー */
+.textSlider, .textSliderBottom {
+  position: relative;
+  left: 0;
+  display: flex;
+  width: 100%;
+  white-space: nowrap;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #e69f00;
+  height: 60px;
+  z-index: 100;
+  color: #ffffff;
+  font-size: 24px;
+  font-weight: bold;
+  text-shadow: -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000, 1px 1px 0 #000;
+}
+
+/* テキストと警告アイコンを横並びにする */
+.sliderTextWithIcon {
+  display: flex;
+  align-items: center;
+  width: 33%; /* 各テキスト要素がスライダー内で均等に並ぶように設定 */
+}
+
+.arrowIcon {
+  width: 56px; /* 矢印アイコンの大きさを大きくする */
+  height: 56px;
+  margin-right: 5px; /* アイコンとテキストの間隔 */
+}
+
+.warningIcon {
+  width: 30px; /* 警告アイコンの大きさ */
+  height: 30px;
+  margin-right: 10px; /* テキストとの間隔 */
+}
+
+.textSlider {
+  top: 0;
+}
+
+.textSliderBottom {
+  bottom: 90px; /* デフォルトの位置 */
+}
+
+/* 避難ページでのスタイル上書き */
+.evacuationPage .textSliderBottom {
+  bottom: 0 !important; /* 避難ページでのみ最下部に配置 */
+}
