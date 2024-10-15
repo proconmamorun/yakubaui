@@ -30,7 +30,10 @@
   transition: all 0.5s 0.15s ease-out;
 }
 
-
+.city-label-on {
+  color: #2FA268;
+  transition: all 0.5s 0.15s ease-out;
+}
 
 #switch {
   top: 50%;
@@ -50,8 +53,13 @@
   box-sizing: border-box;
 }
 
-.toggle.toggle-on {
+.toggle-on {
   background-color: #E69F00;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+.city-toggle-on {
+  background-color: #2FA268;
   transition: all 0.5s 0.15s ease-out;
 }
 
@@ -76,6 +84,13 @@
   box-shadow: 0 0 16px color-mix(in lab, #ffffff, #E69F00);
 }
 
+.city-toggle-on .toggle-button {
+  right: 6px;  /* ON時のボタンを右端に */
+  width: 28px; /* ON時でもボタンのサイズを維持 */
+  background-color: #ffffff;
+  box-shadow: 0 0 16px color-mix(in lab, #ffffff, #2FA268);
+}
+
 .toggle-text-on {
   position: absolute;
   top: 3px;
@@ -92,7 +107,11 @@
   transition: color 0.3s 0.15s;
 }
 
-.toggle-on .toggle-text-on {
+.toggle-on .toggle-text-on{
+  color: #ffffff;  /* ON時の文字色 */
+  left: 10px;      /* ONの時は文字を少し左に寄せる */
+}
+.city-toggle-on .toggle-text-on{
   color: #ffffff;  /* ON時の文字色 */
   left: 10px;      /* ONの時は文字を少し左に寄せる */
 }

@@ -14,8 +14,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import { Button } from '@mui/material'; 
-import SearchIcon from '@mui/icons-material/Search';
+import { Button } from '@mui/material';
 
 // SafeCheckコンポーネントの引数で使用するインターフェース
 interface SafeCheckProps {
@@ -271,12 +270,33 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 					))}
 					{/* 救助隊のマーカー（無条件表示） */}
 					{rescuePositions.map(rescue => (
-						<Marker key={rescue.id} position={{lat: rescue.latitude, lng: rescue.longitude}}/>
+						<Marker
+							key={rescue.id}
+							position={{ lat: rescue.latitude, lng: rescue.longitude }}
+							icon={{
+								path: google.maps.SymbolPath.CIRCLE,  // 丸いマーカーの形状
+								scale: 10,  // アイコンのサイズ
+								fillColor: '#E69F00',  // 塗りつぶしの色
+								fillOpacity: 1,  // 塗りつぶしの不透明度
+								strokeWeight: 2,  // 枠線の太さ
+								strokeColor: 'white'  // 枠線の色
+							}}
+						/>
 					))}
 					{/* 役場職員のマーカー（無条件表示） */}
 					{publicServantPositions.map(publicServant => (
-						<Marker key={publicServant.id}
-								position={{lat: publicServant.latitude, lng: publicServant.longitude}}/>
+						<Marker
+							key={publicServant.id}
+							position={{ lat: publicServant.latitude, lng: publicServant.longitude }}
+							icon={{
+								path: google.maps.SymbolPath.CIRCLE,  // 丸いマーカーの形状
+								scale: 10,  // アイコンのサイズ
+								fillColor: '#2FA268',  // 塗りつぶしの色
+								fillOpacity: 1,  // 塗りつぶしの不透明度
+								strokeWeight: 2,  // 枠線の太さ
+								strokeColor: 'white'  // 枠線の色
+							}}
+						/>
 					))}
 				</GoogleMap>
 			)}
