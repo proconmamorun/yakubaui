@@ -1,37 +1,201 @@
 .container {
   display: flex;
-  justify-content: center;
-  align-items: center;
+  justify-content: left;
+  align-items: flex-start;
   height: 100vh; /* 画面全体の高さに合わせる */
   background-color: white; /* 背景色を白に設定 */
 }
 
-.grayBox {
-  width: 1000px;
-  height: 650px;
-  position: absolute; /* 絶対位置に配置 */
-  top: 100px;
-  right: 40px;
-  background-color: gray; /* 灰色の四角形 */
-  gap: 0px;
+.buttons {
+  display: flex;
+  flex-direction: row;
+  gap: 30px;
+  margin: 20px;
+}
+
+
+.label {
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 1em;
+  padding-bottom: 2px;
+  color: #757471;
+  transition: all 0.5s 0.15s ease-out;
+  text-align: center;
+}
+
+.label-on {
+  color: #E69F00;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+.city-label-on {
+  color: #2FA268;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+#switch {
+  top: 50%;
+  left: 50%;
+  width: 75px;  /* トグル全体の幅 */
+  height: 40px; /* トグル全体の高さ */
+  position: relative;
+}
+
+.toggle {
+  position: relative;
+  width: 75px;
+  height: 40px;
+  background-color: #757471;
+  border-radius: 20px;
+  transition: border-color 0.6s ease-out;
+  box-sizing: border-box;
+}
+
+.toggle-on {
+  background-color: #E69F00;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+.city-toggle-on {
+  background-color: #2FA268;
+  transition: all 0.5s 0.15s ease-out;
+}
+
+.toggle-button {
+  position: absolute;
+  top: 6px;
+  bottom: 3px;
+  right: 39px;  /* OFF時のボタン位置 */
+  width: 28px;
+  height: 28px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  cursor: pointer;
+  transition: all 0.3s 0.1s;
   z-index: 1;
 }
 
-.greenBox1 {
-  width: 50px;
-  height: 200px;
-  position: absolute; /* 絶対位置に配置 */
-  top: 0px;
-  left: 80px;
-  background-color: #98CB9A; /* 灰色の四角形 */
+.toggle-on .toggle-button {
+  right: 6px;  /* ON時のボタンを右端に */
+  width: 28px; /* ON時でもボタンのサイズを維持 */
+  background-color: #ffffff;
+  box-shadow: 0 0 16px color-mix(in lab, #ffffff, #E69F00);
 }
 
-.greenBox2 {
-  width: 200px;
-  height: 30px;
-  position: absolute; /* 絶対位置に配置 */
-  top: 130px;
-  left: 0px;
-  background-color: #98CB9A; /* 灰色の四角形 */
+.city-toggle-on .toggle-button {
+  right: 6px;  /* ON時のボタンを右端に */
+  width: 28px; /* ON時でもボタンのサイズを維持 */
+  background-color: #ffffff;
+  box-shadow: 0 0 16px color-mix(in lab, #ffffff, #2FA268);
 }
 
+.toggle-text-on {
+  position: absolute;
+  top: 3px;
+  bottom: 0;
+  left: 10px;  /* ONのときも文字を少し左寄せ */
+  line-height: 36px;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  cursor: pointer;
+  user-select: none;
+  color: rgba(0, 0, 0, 0);  /* OFF時は透明 */
+  transition: color 0.3s 0.15s;
+}
+
+.toggle-on .toggle-text-on{
+  color: #ffffff;  /* ON時の文字色 */
+  left: 10px;      /* ONの時は文字を少し左に寄せる */
+}
+.city-toggle-on .toggle-text-on{
+  color: #ffffff;  /* ON時の文字色 */
+  left: 10px;      /* ONの時は文字を少し左に寄せる */
+}
+
+.toggle-text-off {
+  position: absolute;
+  top: 3px;
+  bottom: 0;
+  right: 6px;
+  line-height: 36px;
+  text-align: center;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 14px;
+  font-weight: bold;
+  user-select: none;
+  cursor: pointer;
+  color: #ffffff;  /* OFF時の文字色 */
+  transition: color 0.3s 0.15s;
+}
+
+.toggle-on .toggle-text-off {
+  color: rgba(0, 0, 0, 0);  /* ON時はOFFの文字を消す */
+}
+
+
+.publish-container {
+  position: absolute;
+  top: calc(80vh - 20px);
+  margin-left: 20px;
+
+  display: flex;
+  align-items: flex-end;
+  gap: 20px;
+  width: 100%;
+}
+
+.publish {
+  width: 150px;
+  height: 100px;
+  color: #2FA268;
+  font-family: 'Quicksand', sans-serif;
+  font-size: 1.5em;
+  font-weight: 500;
+  padding: 10px;
+  border-radius: 10px;
+  border: 5px solid #2FA268;
+  background-color: white;
+  z-index: 1;
+}
+
+.publish-buttons > button{
+  background-color: #2FA268;
+  font-size: large;
+  padding: 10px;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  margin: 5px;
+}
+
+.publish-buttons-off {
+  display: none;
+  transition: color 0.3s 0.15s;
+}
+
+.publish-buttons-on {
+  display: block;
+  transition: color 0.3s 0.15s;
+}
+
+.publish-buttons {
+  overflow: hidden;
+  max-height: 0;
+  opacity: 0;
+  transition: max-height 0.5s ease, opacity 0.3s ease;
+}
+
+.publish-buttons-on {
+  display: block; /* 必要であれば */
+  max-height: 200px; /* 必要に応じて調整 */
+  opacity: 1;
+}
+
+.publish-buttons-off {
+  max-height: 0;
+  opacity: 0;
+}

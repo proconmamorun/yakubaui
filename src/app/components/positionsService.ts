@@ -38,12 +38,15 @@ export const fetchUsersWithPositionsData = async (): Promise<UserWithPosition[]>
             ...doc.data()
         })) as UserWithPosition[];
 
-        // 安否情報でソート
+        // Adjusted sorting logic based on the type of 'safety'
         return usersList.sort((a, b) => {
-            if (a.safety === "救助が必要" && b.safety !== "救助が必要") return -1;
-            if (a.safety !== "救助が必要" && b.safety === "救助が必要") return 1;
-            if (a.safety === "無事" && b.safety !== "無事") return -1;
-            if (a.safety !== "無事" && b.safety === "無事") return 1;
+            const safetyA = a.safety === "false" ? false : a.safety === "true" ? true : undefined;
+            const safetyB = b.safety === "false" ? false : b.safety === "true" ? true : undefined;
+
+            if (safetyA === false && safetyB !== false) return -1;
+            if (safetyA !== false && safetyB === false) return 1;
+            if (safetyA === true && safetyB !== true) return -1;
+            if (safetyA !== true && safetyB === true) return 1;
             return 0;
         });
     } catch (error) {

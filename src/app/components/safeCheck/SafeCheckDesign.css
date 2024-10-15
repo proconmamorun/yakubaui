@@ -8,28 +8,6 @@
   background-color: white; /* 背景色を白に設定 */
 }
 
-
-table {
-  margin: 10px 0;
-  width: 90%;
-
-  border: solid 1px black;
-  background-color: #E7E7E7;
-;
-}
-
-.name {
-  width: 40%;
-}
-
-.safety {
-  width: 30%;
-}
-
-.position {
-  width: 30%;
-}
-
-td {
-  padding: 10px;
+.safe-container > *{
+  margin: 5px 0;
 }

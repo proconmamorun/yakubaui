@@ -1,4 +1,4 @@
-/*
+
 import React, { useEffect, useState, useCallback} from 'react';
 import { collection, getDocs, addDoc } from 'firebase/firestore';
 import { db } from '../firebaseConfig';
@@ -154,5 +154,3 @@ const MainApp: React.FC = () => {
 
 export default MainApp;
 export { containerStyle, center };
-
- */

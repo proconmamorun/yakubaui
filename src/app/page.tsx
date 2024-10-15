@@ -25,7 +25,7 @@ const Page: React.FC = () => {
                     {mode === 'map' && <Map area={area}/>}
                     {mode === 'SafeCheck' && <SafeCheck area={area} filterDistrict={filterDistrict} />}
                     {mode === 'newsBelt' && <NewsBelt area={area}/>}
-                    {mode === 'Dangerous' && <Dangerous area={area}/>}
+                    {mode === 'Dangerous' && <Dangerous/>}
                 </div>
             </LocationProvider>
         </div>
