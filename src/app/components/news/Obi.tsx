@@ -13,52 +13,54 @@ export function Obi() {
         // Firestoreから最新のアラートメッセージを取得
         const fetchAlertMessage = async () => {
             try {
-                // Firestoreから `alert` コレクションの最新ドキュメントを取得
                 const alertQuery = query(collection(db, "alert"), orderBy("createdAt", "desc"), limit(1));
                 const querySnapshot = await getDocs(alertQuery);
 
                 if (!querySnapshot.empty) {
                     const doc = querySnapshot.docs[0];
                     const alertData = doc.data();
-                    const alertMessage = alertData.text || "警告: データがありません";  // `text`フィールドを取得、ない場合はデフォルト値
-                    setMessages([alertMessage]);  // 初期メッセージを設定
+                    const alertMessage = alertData.text || "警告: データがありません";
+                    setMessages([alertMessage]);
                 } else {
-                    setMessages(["警告: データがありません"]); // データがない場合の処理
+                    setMessages(["警告: データがありません"]);
                 }
             } catch (error) {
                 console.error("Firestoreからメッセージの取得に失敗しました:", error);
-                setMessages(["エラー: メッセージを取得できません", "エラー: メッセージを取得できません", "エラー: メッセージを取得できません"]); // エラーハンドリング
+                setMessages(["エラー: メッセージを取得できません"]);
             }
         };
 
-        fetchAlertMessage();  // Firestoreからデータを取得
+        // ???秒ごとにFirestoreのデータを取得
+        const intervalId = setInterval(() => {
+            fetchAlertMessage();
+        }, 5000);  // 現在:5秒
 
         // Intersection Observer を設定して、最後の帯が画面に入ったら新しいメッセージを追加
         const observer = new IntersectionObserver(
             ([entry]) => {
                 if (entry.isIntersecting) {
-                    // 新しいメッセージを追加し、古いメッセージを削除して無限にスライド
                     setMessages((prevMessages) => {
-                        const newMessage = `新しい警告: ${Math.random()}`;  // 動的に新しいメッセージを生成
+                        const newMessage = `新しい警告: ${Math.random()}`;
                         const updatedMessages = [...prevMessages.slice(1), newMessage];
                         return updatedMessages;
                     });
                 }
             },
-            { root: null, threshold: 1.0 } // 3枚目が完全に表示されたら発火
+            { root: null, threshold: 1.0 }
         );
 
         if (lastItemRef.current) {
             observer.observe(lastItemRef.current);
         }
 
+        // コンポーネントがアンマウントされたときにintervalとobserverを解除
         return () => {
+            clearInterval(intervalId);  // インターバルをクリア
             if (lastItemRef.current) {
                 observer.unobserve(lastItemRef.current);
             }
         };
     }, []);
-
     return (
 		<div>
 			<div className="obiContainer">
