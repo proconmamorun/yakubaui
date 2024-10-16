@@ -5,6 +5,7 @@ import { storage } from "../firebase/firebaseConfig";  // Firestoreのインス�
 
 const Dangerous: React.FC = () => {
     const [images, setImages] = useState<string[]>([]);
+	const [selectedImage, setSelectedImage] = useState<string | null>(null); // 選択された画像を保存
 	const maxImages = 6;
 
     useEffect(() => {
@@ -19,6 +20,10 @@ const Dangerous: React.FC = () => {
         fetchImages();
     }, []);
 
+	const handleImageClick = (image: string) => {
+        setSelectedImage(image);
+    };
+
     return (
         <div>
             <div className="container1">
@@ -27,11 +32,17 @@ const Dangerous: React.FC = () => {
                 <div className="greenBox2"></div>
                 <div className="sentakupicture">
                     <div className="text1">選択した画像</div>
-                    <div className="grayBox"></div>
+                    <div className="grayBox">
+                        {selectedImage && ( // 選択された画像のみを表示
+                            <div className="choicePicture">
+                                <img src={selectedImage} alt="Selected" />
+                            </div>
+                        )}
+					</div>
                 </div>
                 <div className="grid">
                     {images.map((image, index) => (
-                        <div key={index} className="picture">
+                        <div key={index} className="picture" onClick={() => handleImageClick(image)}> 
                             <img src={image} alt={`Uploaded ${index}`} />
                         </div>
                     ))}
@@ -96,3 +107,4 @@ const Dangerous: React.FC = () => {
 };
 
 export default Dangerous;
+
