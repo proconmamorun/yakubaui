@@ -30,6 +30,9 @@ export function Obi() {
             }
         };
 
+		// 最初に読み込ませる。
+		fetchAlertMessage();
+
         // ???秒ごとにFirestoreのデータを取得
         const intervalId = setInterval(() => {
             fetchAlertMessage();
