@@ -1,8 +1,6 @@
 .home-container {
   padding: 7vh 0;
 
-  place-items: center;
-
   display: grid;
   grid-template-columns: 1fr;
   grid-template-rows: 1fr 3fr;
@@ -18,13 +16,6 @@
   width: 90%;
   height: 100%;
   background-color: gray; /* 灰色の四角形 */
-  border-radius: 10px; /* 四隅の角丸の設定 */
-}
-
-.green-box {
-  width: 90%;
-  height: 100%;
-  background-color: #B5DFCA;
   border-radius: 10px; /* 四隅の角丸の設定 */
 }
 
