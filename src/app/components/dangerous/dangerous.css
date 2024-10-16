@@ -174,3 +174,10 @@
   align-items: center;
   height: 100%;
 }
+
+.picture img {
+    width: 180px;  /* 幅を150pxに設定 */
+    height: 240px;
+    object-fit: cover; /* アスペクト比を維持してトリミング */
+    border-radius: 8px; /* 角を少し丸くする */
+}
