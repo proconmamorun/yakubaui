@@ -36,7 +36,7 @@ export function Obi() {
         // ???秒ごとにFirestoreのデータを取得
         const intervalId = setInterval(() => {
             fetchAlertMessage();
-        }, 5000);  // 現在:5秒
+        }, 8000);  // 現在:8秒
 
         // Intersection Observer を設定して、最後の帯が画面に入ったら新しいメッセージを追加
         const observer = new IntersectionObserver(

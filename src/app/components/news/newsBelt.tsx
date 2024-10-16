@@ -21,6 +21,7 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
     return (
         <div>
             <div className="container">
+				<Obi />
                 <div className="frame">
                     <div className="nyuuryokutext">文を入力してください。</div>
                     <input
@@ -30,8 +31,7 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                         onChange={(e) => setMessage(e.target.value)} // 入力値を更新
                     />
                 </div>
-				<Obi />
-				<button onClick={handleSend} className="textwrapper">町民側へ送信</button>
+				<button onClick={handleSend} className="textwrapper">送信</button>
 			</div>
         </div>
     );

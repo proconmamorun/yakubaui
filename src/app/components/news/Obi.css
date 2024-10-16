@@ -70,9 +70,12 @@
   bottom: 0 !important; /* 避難ページでのみ最下部に配置 */
 }
 
-.mokuzi{
-	color: #000000;
-	font-weight: lighter; /* 太字に設定 */
-	font-size: 20px;
-	margin-top: 20px;
+.mokuzi {
+    color: #303030;
+    font-weight: light; /* 太字に設定 */
+    font-size: 20px;
+    margin-top: 20px;
+    letter-spacing: 1px; /* 文字の間隔を広げる */
+    line-height: 1.4; /* 行間を調整 */
+    font-family: 'Arial', sans-serif; /* フォントを設定 */
 }
