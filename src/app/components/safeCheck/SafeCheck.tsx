@@ -219,8 +219,8 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 				<ToggleButton value="safe" aria-label="無事">
 					無事
 				</ToggleButton>
-				<ToggleButton value="danger" aria-label="危険">
-					危険
+				<ToggleButton value="danger" aria-label="救助が必要">
+					救助が必要
 				</ToggleButton>
 			</ToggleButtonGroup>
 
@@ -229,9 +229,9 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 				<Table>
 					<TableHead>
 						<TableRow>
-							<TableCell className="name">Name</TableCell>
-							<TableCell className="safety">Safety</TableCell>
-							<TableCell className="position">Position</TableCell>
+							<TableCell className="name">名前</TableCell>
+							<TableCell className="safety">安否</TableCell>
+							<TableCell className="position">位置情報</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody className="citizentable">
