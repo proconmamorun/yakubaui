@@ -120,9 +120,15 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 	// データのフェッチ処理
 	useEffect(() => {
 		const fetchData = async () => {
+			const rescueData = await fetchRescuePositionsData();
+			const publicServantData = await fetchPublicServantPositionsData();
+
+			console.log(rescueData); // 救助隊データの確認
+			console.log(publicServantData); // 役場職員データの確認
+
 			setUsersWithPositions(await fetchUsersWithPositionsData());
-			setRescuePositions(await fetchRescuePositionsData());
-			setPublicServantPositions(await fetchPublicServantPositionsData());
+			setRescuePositions(rescueData);
+			setPublicServantPositions(publicServantData);
 		};
 		fetchData();
 	}, []);
@@ -274,12 +280,12 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 							key={rescue.id}
 							position={{ lat: rescue.latitude, lng: rescue.longitude }}
 							icon={{
-								path: google.maps.SymbolPath.CIRCLE,  // 丸いマーカーの形状
-								scale: 10,  // アイコンのサイズ
-								fillColor: '#E69F00',  // 塗りつぶしの色
-								fillOpacity: 1,  // 塗りつぶしの不透明度
-								strokeWeight: 2,  // 枠線の太さ
-								strokeColor: 'white'  // 枠線の色
+								path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+								scale: 5, // アイコンのサイズ
+								fillColor: "#ff7300", // 塗りつぶしの色
+								fillOpacity: 1, // 塗りつぶしの不透明度
+								strokeWeight: 2, // 枠線の太さ
+								strokeColor: "white", // 枠線の色
 							}}
 						/>
 					))}
@@ -287,14 +293,17 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 					{publicServantPositions.map(publicServant => (
 						<Marker
 							key={publicServant.id}
-							position={{ lat: publicServant.latitude, lng: publicServant.longitude }}
+							position={{
+								lat: publicServant.latitude,
+								lng: publicServant.longitude,
+							}}
 							icon={{
-								path: google.maps.SymbolPath.CIRCLE,  // 丸いマーカーの形状
-								scale: 10,  // アイコンのサイズ
-								fillColor: '#2FA268',  // 塗りつぶしの色
-								fillOpacity: 1,  // 塗りつぶしの不透明度
-								strokeWeight: 2,  // 枠線の太さ
-								strokeColor: 'white'  // 枠線の色
+								path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+								scale: 5, // アイコンのサイズ
+								fillColor: "#3d5a80", // 塗りつぶしの色
+								fillOpacity: 1, // 塗りつぶしの不透明度
+								strokeWeight: 2, // 枠線の太さ
+								strokeColor: "white", // 枠線の色
 							}}
 						/>
 					))}
