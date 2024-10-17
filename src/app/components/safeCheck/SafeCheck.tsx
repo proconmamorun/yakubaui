@@ -161,8 +161,8 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 		// 安否フィルターの適用
 		const matchesSafety = filter === 'all' ||
-			(filter === 'safe' && user.safety === '無事') ||
-			(filter === 'danger' && user.safety === '救助が必要');
+			(filter === 'safe' && (user.safety?.toLowerCase() === '無事' || user.safety === undefined || user.safety === null)) ||
+			(filter === 'danger' && user.safety?.toLowerCase() === '救助が必要');
 
 		return matchesDistrict && matchesSearch && matchesSafety;
 	});
