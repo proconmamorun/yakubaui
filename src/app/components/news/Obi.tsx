@@ -67,7 +67,7 @@ export function Obi() {
     return (
 		<div>
 			<div className="obiContainer">
-				<h2 className="mokuzi">現在の帯</h2>
+				<h2 className="mokuzi">町民に見えている緊急速報</h2>
 				<div className= "obiPreview">
 					<div className="textSlider" ref={sliderRef}>
 						<img src="/images/obi-arrow.png" alt="矢印" className="arrowIcon" />

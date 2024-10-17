@@ -97,6 +97,8 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
         const publicServants = await fetchPublicServantPositionsData();
         setPublicServantPositions(publicServants);
+
+        fetchPositionsData();
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -106,19 +108,20 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   }, []);
 
   // ピンの情報を取得
-  const fetchPositionsData = async () => {
-    try {
-      const positionsCollection = collection(db, "locations");
-      const positionsSnapshot = await getDocs(positionsCollection);
-      const positionsList = positionsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Position[];
-      setPositions(positionsList);
-    } catch (error) {
-      console.error("Error fetching positions: ", error);
-    }
-  };
+	const fetchPositionsData = async () => {
+		try {
+			const positionsCollection = collection(db, "locations");
+      
+			const positionsSnapshot = await getDocs(positionsCollection);
+			const positionsList = positionsSnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			})) as Position[];
+			setPositions(positionsList);
+		} catch (error) {
+			console.error("Error fetching positions: ", error);
+		}
+	};
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -250,9 +253,16 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       key={position.id}
                       position={{lat: position.latitude, lng: position.longitude}}
                       icon={getMarkerIcon(position.safety ?? "")}
+                      /*label={{
+                        text: String(position.dangerlevel),
+                        fontSize: "16px",
+                        color: "black",
+                      }}*/
+                      onClick={() => handleMarkerClick(position.id)}
                   />
               ))
               }
+
             {positions.map((position) => (
               <Marker
                 key={position.id}
