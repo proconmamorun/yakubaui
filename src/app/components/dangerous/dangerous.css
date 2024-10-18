@@ -2,190 +2,136 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh; /* 画面全体の高さに合わせる */
-  background-color: white; /* 背景色を白に設定 */
+  height: 100vh;
+  background-color: white;
 }
 
 .greenBox1 {
   width: 50px;
   height: 200px;
-  position: absolute; /* 絶対位置に配置 */
-  top: 0px;
+  position: absolute;
+  top: 0;
   left: 80px;
-  background-color: #98CB9A; /* 灰色の四角形 */
+  background-color: #98CB9A;
 }
 
 .greenBox2 {
   width: 200px;
   height: 30px;
-  position: absolute; /* 絶対位置に配置 */
+  position: absolute;
   top: 130px;
-  left: 0px;
+  left: 0;
   background-color: #98CB9A;
 }
 
-.grid{
+.grid {
   display: grid;
   gap: 26px;
-  grid-template-columns: 1fr 1fr 1fr;
+  grid-template-columns: repeat(3, 1fr);
   margin-bottom: 50px;
   position: absolute;
   top: 30px;
-  left: 400px;
+  left: 250px;
 }
 
-.picture{
+.picture {
   width: 180px;
   height: 240px;
   background-color: gray;
-	border-radius: 8px; /* 角を少し丸くする */
+  border-radius: 8px;
 }
 
-.sentakupicture{
+.picture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.sentakupicture {
   width: 360px;
   height: 505px;
-  position: absolute; /* 絶対位置に配置 */
+  position: absolute;
   top: 30px;
   right: 40px;
   background-color: #B5DFCA;
-	border-radius: 10px; /* 角を少し丸くする */
+  border-radius: 10px;
 }
 
-.text1{
-  color:#52514D;
+.choicePicture{
+  height: 100%;
+}
+
+.choicePicture img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.text1 {
+  color: #52514D;
   font-size: 30px;
   position: absolute;
   top: 450px;
   left: 90px;
 }
 
-.grayBox{
+.grayBox {
   width: 300px;
   height: 400px;
-  position: absolute; /* 絶対位置に配置 */
-  background-color: #D9D9D9;
-  top: 30px;
-  right:30px;
-	border-radius: 8px; /* 角を少し丸くする */
-}
-
-.kikendoBox{
-  width: 1000px;
-  height: 200px;
-  position: absolute; /* 絶対位置に配置 */
-  background-color: #B5DFCA;
-  top: 560px;
-  right:40px;
-  border-radius: 10px;
-}
-
-.text2{
-  color:#52514D;
-  font-size: 30px;
   position: absolute;
+  top: 30px;
+  right: 30px;
+  background-color: #D9D9D9;
+  border-radius: 8px;
+}
+
+.kikendoBox {
+  width: 1000px;
+  position: absolute;
+  top: 560px;
+  right: 40px;
+  padding: 4px 30px;
+  background-color: #B5DFCA;
+  border-radius: 10px;
+}
+
+.text2 {
+  color: #52514D;
+  font-size: 30px;
+  position: relative;
   top: 20px;
-  left: 30px;
+  margin-bottom: 30px;
 }
 
-.box {
-  height: 100px;
-  width: 200px;
-}
-
-.box .group{
-  background-color: #ffffff;
-  border: 5px solid;
-  border-color: #2fa268;
-  border-radius: 10px;
-  height: 100px; /* 高さ */
-  width: 200px; /* 幅 */
+.grid2 {
+  margin-top: 30px;
   display: flex;
-  justify-content: center;
-  align-items: center;
-  position: absolute; /* 位置を固定 */
-  top: 50px; /* 画面の上からの距離を指定 */
-  right: 50px; /* 画面の左からの距離を指定 */
-}
-
-.box .div-wrapper{
-  height: 36px;
-  left: 29px;
-  position: relative;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.box .textwrapper{
-  font-size: 24px; /* フォントサイズを調整 */
-  font-weight: 700;
-  text-align: center;
-  display: flex;
-  align-items: center;
-  height: 100%;
-}
-
-.grid2{
-  display: flex;
-  margin-top:10px;
-  margin-left: 20px;
   gap: 10px;
+  margin-top: 10px;
+  padding-bottom: 10px;
 }
 
-.box2 {
-  height: 100px;
-  width: 100px;
-  margin-right: 5px;
+.horizontalArea{
+  display: flex;
+  flex-direction: row;
 }
 
-.box2:last-child {
-  margin-right: 0; /* 最後の要素のマージンをリセット */
+.textwrapper {
+  margin-left: auto;
 }
 
-.box2 .group2{
+
+.textwrapper2 {
+  color: #2fa268;
   background-color: #ffffff;
-  height: 50px; /* 高さ */
-  width: 100px; /* 幅 */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  position: relative; /* 位置を固定 */
-  border-radius: 10px;
-  margin-right: 5px;
-}
-
-.box2 .div-wrapper2{
-  height: 36px;
-  position: relative;
-  width: 150px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.box2 .textwrapper2{
-  color: #2fa268 !important;
-	background-color: #ffffff;
   font-size: 24px;
   font-weight: 500;
-  text-align: center;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
-}
-
-.picture img {
-    width: 180px;
-    height: 240px;
-    object-fit: cover; /* アスペクト比を維持してトリミング */
-    border-radius: 8px; /* 角を少し丸くする */
-}
-
-.choicePicture img {
-    width: 300px;
-    height: 400px;
-    object-fit: cover; /* アスペクト比を維持してトリミング */
-    border-radius: 8px; /* 角を少し丸くする */
+  border-radius: 10px;
+  padding: 10px;
+  cursor: pointer;
 }

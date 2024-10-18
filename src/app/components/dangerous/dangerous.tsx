@@ -76,30 +76,18 @@ const Dangerous: React.FC = () => {
                 </div>
                 <div className="kikendoBox">
                     <div className="text2">危険度を選択してください。</div>
-                    <div className="box">
-                        <div className="group">
-                            <div className="divwrapper">
-                                <button onClick={dangerSend} className="textwrapper">送信</button>
-                            </div>
+                    <div className='horizontalArea'>
+                        <div className="grid2">
+                            {dangerLevels.map((level) => (
+                                <button onClick={() => dangerousChoice(level)} className="textwrapper2">
+                                    危険度{level}
+                                </button>
+                            ))}
+                            <button onClick={() => dangerousChoice(0)} className="textwrapper2">
+                                安全
+                            </button>
                         </div>
-                    </div>
-                    <div className="grid2">
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    {dangerLevels.map((level) => (
-                                        <div key={level} className="textwrapper2">
-                                            <button onClick={() => dangerousChoice(level)} className="textwrapper2">
-                                                危険度{level}
-                                            </button>
-                                        </div>
-                                    ))}
-                                    <button onClick={() => dangerousChoice(0)} className="textwrapper2">
-                                        安全
-                                    </button>
-                                </div>
-                            </div>
-                        </div>
+                        <button onClick={dangerSend} className="textwrapper">送信</button>
                     </div>
                 </div>
             </div>

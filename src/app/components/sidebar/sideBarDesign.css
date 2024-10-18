@@ -8,12 +8,11 @@
 .bar {
 	display: flex;
 	flex-flow: column;
-	gap: 12px;
+	gap: 19px;
 	width: 80%;
 	border-radius: 10px;
 	background-color: #B5DFCA;
 	align-items: flex-start;
-
 	padding: 15px;
 }
 /*すべてのボタンのボーダーをあらかじめなしにする*/
