@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import './dangerous.css';  // 相対パスでCSSファイルをインポート
-import { storage } from "../firebase/firebaseConfig";  // Firestoreのインスタンス
+import { db, storage } from "../firebase/firebaseConfig";  // Firestoreのインスタンス
 
 const Dangerous: React.FC = () => {
     const [images, setImages] = useState<string[]>([]);
 	const [selectedImage, setSelectedImage] = useState<string | null>(null); // 選択された画像を保存
+	const [danger, setDanger] = useState<number | null>(null); // 危険度保存関数 
 	const maxImages = 6;
+	const dangerLevels = [1, 2, 3, 4, 5];
 
     useEffect(() => {
         const fetchImages = async () => {
@@ -23,6 +25,26 @@ const Dangerous: React.FC = () => {
 	const handleImageClick = (image: string) => {
         setSelectedImage(image);
     };
+	const dangerousChoice = (level: number) => {
+		setDanger(level);
+		console.log(`危険度: ${level}`);
+	}
+	const dangerSend = async () => {
+		if (selectedImage && danger !== null) {
+			try {
+				// Firestoreのコレクション「dangerousImages」にデータを追加
+				await addDoc(collection(firestore, "dangerousImages"), {
+					imageUrl: selectedImage,
+					dangerLevel: danger,
+				});
+				console.log("データが保存されました！");
+			} catch (error) {
+				console.error("エラーが発生しました: ", error);
+			}
+		} else {
+			console.log("画像と危険度を入力してね");
+		}
+	};
 
     return (
         <div>
@@ -52,7 +74,7 @@ const Dangerous: React.FC = () => {
                     <div className="box">
                         <div className="group">
                             <div className="divwrapper">
-                                <div className="textwrapper">町民地図に記載</div>
+								<button onClick={Dangerous} className="textwrapper">送信</button>
                             </div>
                         </div>
                     </div>
@@ -60,42 +82,12 @@ const Dangerous: React.FC = () => {
                         <div className="box2">
                             <div className="group2">
                                 <div className="divwrapper2">
-                                    <div className="textwrapper2">危険度1</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    <div className="textwrapper2">危険度2</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    <div className="textwrapper2">危険度3</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    <div className="textwrapper2">危険度4</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    <div className="textwrapper2">危険度5</div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className="box2">
-                            <div className="group2">
-                                <div className="divwrapper2">
-                                    <div className="textwrapper2">安全</div>
+									{dangerLevels.map((level) => (
+										<div key={level} className="textwrapper2">
+											<button onClick={() => dangerousChoice(level)} className="textwrapper2">危険度{level}</button>
+										</div>
+									))}
+								<button onClick={() => dangerousChoice(1)} className="textwrapper2">安全</button>
                                 </div>
                             </div>
                         </div>

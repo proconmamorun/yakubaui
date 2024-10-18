@@ -21,7 +21,7 @@
   position: absolute; /* 絶対位置に配置 */
   top: 130px;
   left: 0px;
-  background-color: #98CB9A; /* 灰色の四角形 */
+  background-color: #98CB9A;
 }
 
 .grid{
@@ -118,12 +118,10 @@
 }
 
 .box .textwrapper{
-  color: #2fa268 !important; /* 緑色に設定 */
   font-size: 24px; /* フォントサイズを調整 */
   font-weight: 700;
   text-align: center;
   display: flex;
-  justify-content: center;
   align-items: center;
   height: 100%;
 }
@@ -167,8 +165,9 @@
 }
 
 .box2 .textwrapper2{
-  color: #2fa268 !important; /* 緑色に設定 */
-  font-size: 24px; /* フォントサイズを調整 */
+  color: #2fa268 !important;
+	background-color: #ffffff;
+  font-size: 24px;
   font-weight: 500;
   text-align: center;
   display: flex;
