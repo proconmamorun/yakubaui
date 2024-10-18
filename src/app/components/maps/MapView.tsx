@@ -83,6 +83,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string, // 環境変数からAPIキーを取得
+    language: 'ja'
   });
 
   // 位置情報を取得
@@ -97,6 +98,8 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
         const publicServants = await fetchPublicServantPositionsData();
         setPublicServantPositions(publicServants);
+
+        fetchPositionsData();
       } catch (error) {
         console.error("Error fetching data:", error);
       }
@@ -106,19 +109,20 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   }, []);
 
   // ピンの情報を取得
-  const fetchPositionsData = async () => {
-    try {
-      const positionsCollection = collection(db, "locations");
-      const positionsSnapshot = await getDocs(positionsCollection);
-      const positionsList = positionsSnapshot.docs.map((doc) => ({
-        id: doc.id,
-        ...doc.data(),
-      })) as Position[];
-      setPositions(positionsList);
-    } catch (error) {
-      console.error("Error fetching positions: ", error);
-    }
-  };
+	const fetchPositionsData = async () => {
+		try {
+			const positionsCollection = collection(db, "locations");
+      
+			const positionsSnapshot = await getDocs(positionsCollection);
+			const positionsList = positionsSnapshot.docs.map((doc) => ({
+				id: doc.id,
+				...doc.data(),
+			})) as Position[];
+			setPositions(positionsList);
+		} catch (error) {
+			console.error("Error fetching positions: ", error);
+		}
+	};
 
   const handleInputChange = (
     event: React.ChangeEvent<HTMLInputElement>,
@@ -250,9 +254,16 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       key={position.id}
                       position={{lat: position.latitude, lng: position.longitude}}
                       icon={getMarkerIcon(position.safety ?? "")}
+                      /*label={{
+                        text: String(position.dangerlevel),
+                        fontSize: "16px",
+                        color: "black",
+                      }}*/
+                      onClick={() => handleMarkerClick(position.id)}
                   />
               ))
               }
+
             {positions.map((position) => (
               <Marker
                 key={position.id}
@@ -273,9 +284,9 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                   key={rescue.id}
                   position={{ lat: rescue.latitude, lng: rescue.longitude }}
                   icon={{
-                    path: google.maps.SymbolPath.CIRCLE, // 丸いマーカーの形状
-                    scale: 10, // アイコンのサイズ
-                    fillColor: "#E69F00", // 塗りつぶしの色
+                    path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+                    scale: 5, // アイコンのサイズ
+                    fillColor: "#ff7300", // 塗りつぶしの色
                     fillOpacity: 1, // 塗りつぶしの不透明度
                     strokeWeight: 2, // 枠線の太さ
                     strokeColor: "white", // 枠線の色
@@ -294,9 +305,9 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       lng: publicServant.longitude,
                     }}
                     icon={{
-                      path: google.maps.SymbolPath.CIRCLE, // 丸いマーカーの形状
-                      scale: 10, // アイコンのサイズ
-                      fillColor: "#2FA268", // 塗りつぶしの色
+                      path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+                      scale: 5, // アイコンのサイズ
+                      fillColor: "#3d5a80", // 塗りつぶしの色
                       fillOpacity: 1, // 塗りつぶしの不透明度
                       strokeWeight: 2, // 枠線の太さ
                       strokeColor: "white", // 枠線の色
