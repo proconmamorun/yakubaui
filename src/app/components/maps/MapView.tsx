@@ -83,6 +83,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   const { isLoaded } = useJsApiLoader({
     id: "google-map-script",
     googleMapsApiKey: process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY as string, // 環境変数からAPIキーを取得
+    language: 'ja'
   });
 
   // 位置情報を取得
