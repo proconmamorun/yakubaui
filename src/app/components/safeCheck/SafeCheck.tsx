@@ -196,7 +196,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 	// 救助隊のマーカーアイコンを現在の状況に基づいて設定
 	const getRescueIcon = (doing: string) => {
-		const RescueiconUrl = doing === "救助中" ? "/images/MAMORUN_map_icon.png" : doing === "待機中" ? "/images/MAMORUN_map_icon_495960.png" : 'white';
+		const RescueiconUrl = doing === "救助中" ? "/images/MAMORUN_map_icon.png" : doing === "待機中" ? "/images/MAMORUN_map_icon_gray.png" : 'white';
 
 		return {
 			url: RescueiconUrl,
@@ -206,7 +206,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 	// 役場職員のマーカーアイコンを現在の状況に基づいて設定
 	const getPublicServantIcon = (doing: string) => {
-		const PublicServantUrl = doing === "見回り中" ? "" : doing === "待機中" ? "" : 'white';
+		const PublicServantUrl = doing === "見回り中" ? "/images/MAMORUN_MAP_ICON_YAKUIN.png" : doing === "待機中" ? "/images/MAMORUN_MAP_ICON_YAKUIN_GRAY2.png" : 'white';
 
 		return {
 			url: PublicServantUrl,

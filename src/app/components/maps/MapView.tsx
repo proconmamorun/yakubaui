@@ -209,7 +209,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
 	// 役場職員のマーカーアイコンを現在の状況に基づいて設定
 	const getPublicServantIcon = (doing: string) => {
-		const PublicServantUrl = doing === "見回り中" ? "" : doing === "待機中" ? "" : 'white';
+		const PublicServantUrl = doing === "見回り中" ? "/images/MAMORUN_MAP_ICON_YAKUIN.png" : doing === "待機中" ? "/images/MAMORUN_MAP_ICON_YAKUIN_GRAY2.png" : 'white';
 
 		return {
 			url: PublicServantUrl,
