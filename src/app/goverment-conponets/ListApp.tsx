@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore'; // Firestoreからコレクションを取得するための関数をインポート
-import { db } from '../firebaseConfig'; // Firebaseの設定ファイルからデータベースの参照をインポート
 import './MainApp'; // メインアプリのスタイルや設定ファイルをインポート
-import { containerStyle, center } from './MainApp'; // 地図のスタイルと初期位置をインポート
 import { GoogleMap, Marker } from "@react-google-maps/api"; // Googleマップのコンポーネントをインポート
 import '../component/GoogleMapComponent'; // GoogleMapComponentをインポート
+import { db } from '../components/firebase/firebaseConfig';
 
 // 町民の位置情報を含むユーザーの型定義
 type UserWithPosition = {
@@ -51,7 +50,7 @@ const ListApp: React.FC = () => {
     const [publicservantPositions, setPublicServantPositions] = useState<PublicServantPosition[]>([]); // 役場職員の位置情報を保存するステート
     const [searchTerm, setSearchTerm] = useState<string>(""); // 検索キーワードを保存するステート
     const [filterDistrict, setFilterDistrict] = useState<string>(""); // 地区のフィルターを保存するステート
-    const [mapCenter, setMapCenter] = useState<{ lat: number, lng: number }>(center); // 地図の中心位置を保存するステート
+    const [mapCenter, setMapCenter] = useState<{ lat: number, lng: number }>({lat:0,lng:0}); // 地図の中心位置を保存するステート
     const [isSafetyView, setIsSafetyView] = useState<boolean>(false); // 安否情報を表示するかどうかのフラグ
     const [isMapView, setIsMapView] = useState<boolean>(false); // 地図表示フラグ
     const [isRescueView, setIsRescueView] = useState<boolean>(false); // 救助隊表示フラグ
@@ -271,7 +270,10 @@ const ListApp: React.FC = () => {
             {/* Google Mapの表示 */}
             {isMapView && (
                 <GoogleMap
-                    mapContainerStyle = {containerStyle} // マップのスタイル
+                    mapContainerStyle = {{
+                        width: '100%',
+                        height: '70vh'
+                      }} // マップのスタイル
                     center = {selectedUserPosition || mapCenter} // マップの中心
                     zoom = {15} // ズームレベル
                 >

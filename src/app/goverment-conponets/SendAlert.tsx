@@ -1,6 +1,6 @@
 import React, { useEffect, useState, useCallback} from 'react';
 import { doc, collection, addDoc, deleteDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
+import { db } from '../components/firebase/firebaseConfig';
 
 const SendAlert = async (action: 'save' | 'delete', message: string, id?: string) => {
     if (action === 'save' && message) {

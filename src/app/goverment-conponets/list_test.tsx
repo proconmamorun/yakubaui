@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { collection, getDocs } from 'firebase/firestore'; // Firestoreからコレクションを取得するための関数をインポート
-import { db } from '../firebaseConfig'; // Firebaseの設定ファイルからデータベースの参照をインポート
 import { GoogleMap, Marker } from "@react-google-maps/api"; // Googleマップのコンポーネントをインポート
+import { db } from '../components/firebase/firebaseConfig';
 
 // 町民の位置情報を含むユーザーの型定義
 type UserWithPosition = {
@@ -20,7 +20,7 @@ const ListApp: React.FC = () => {
     const [usersWithPositions, setUsersWithPositions] = useState<UserWithPosition[]>([]); // 町民の位置情報を保存するステート
     const [searchTerm, setSearchTerm] = useState<string>(""); // 検索キーワードを保存するステート
     const [filterDistrict, setFilterDistrict] = useState<string>(""); // 地区のフィルターを保存するステート
-    const [mapCenter, setMapCenter] = useState<{ lat: number, lng: number }>(center); // 地図の中心位置を保存するステート
+    const [mapCenter, setMapCenter] = useState<{ lat: number, lng: number }>({lat:0,lng:0}); // 地図の中心位置を保存するステート
     const [isMapView, setIsMapView] = useState<boolean>(false); // 地図表示フラグ
     const [selectedUserPosition, setSelectedUserPosition] = useState<{ lat: number, lng: number } | null>(null); // 選択されたユーザーの位置
 

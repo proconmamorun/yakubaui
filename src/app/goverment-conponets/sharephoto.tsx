@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { collection, addDoc } from 'firebase/firestore';
-import { db } from '../firebaseConfig';
 import EXIF from 'exif-js';
+import { db } from '../components/firebase/firebaseConfig';
 
 interface PhotoLocationData {
     latitude: number | null;
@@ -22,7 +22,7 @@ const SharePhoto: React.FC = () => {
             const img = new Image();
             img.src = e.target?.result as string;
             img.onload = () => {
-                EXIF.getData(img, function () {
+                EXIF.getData(img.src, function () {
                     const lat = EXIF.getTag(img, 'GPSLatitude');
                     const lng = EXIF.getTag(img, 'GPSLongitude');
                 if (lat && lng) {
