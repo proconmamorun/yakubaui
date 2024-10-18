@@ -19,7 +19,8 @@ const GoogleMapComponent: React.FC = () => {
 
   const { isLoaded } = useJsApiLoader({
     id: 'google-map-script',
-    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!
+    googleMapsApiKey: process.env.REACT_APP_GOOGLE_MAPS_API_KEY!,
+    language: 'ja'
   });
 
   const directionsCallback = useCallback((result: google.maps.DirectionsResult | null, status: google.maps.DirectionsStatus) => {
