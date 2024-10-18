@@ -16,7 +16,7 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import { Button } from '@mui/material';
 
-// SafeCheckコンポーネントの引数で使用するインターフェース
+// SafeCheckコンポーネントの引数で使用するインターフェース 
 interface SafeCheckProps {
 	area: string;
 	filterDistrict: string;
@@ -37,6 +37,7 @@ interface RescuePosition {
 	id: string;
 	latitude: number;
 	longitude: number;
+	doing: string;
 }
 
 // 役場職員の位置情報のインターフェース
@@ -44,6 +45,7 @@ interface PublicServantPosition {
 	id: string;
 	latitude: number;
 	longitude: number;
+	doing: string;
 }
 
 // grey カラーパレットの定義
@@ -191,7 +193,26 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 			strokeWeight: 0
 		};
 	};
-	
+
+	// 救助隊のマーカーアイコンを現在の状況に基づいて設定
+	const getRescueIcon = (doing: string) => {
+		const RescueiconUrl = doing === "救助中" ? "/images/MAMORUN_map_icon.png" : doing === "待機中" ? "/images/MAMORUN_map_icon_495960.png" : 'white';
+
+		return {
+			url: RescueiconUrl,
+			scaledSize: new google.maps.Size(50, 50),
+		}
+	};
+
+	// 役場職員のマーカーアイコンを現在の状況に基づいて設定
+	const getPublicServantIcon = (doing: string) => {
+		const PublicServantUrl = doing === "見回り中" ? "" : doing === "待機中" ? "" : 'white';
+
+		return {
+			url: PublicServantUrl,
+			scaledSize: new google.maps.Size(50,50),
+		}
+	};
 
 	return (
 		<div className={"safe-container"}>
@@ -275,19 +296,15 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 							icon={getMarkerIcon(position.safety ?? "")}
 						/>
 					))}
+					
 					{/* 救助隊のマーカー（無条件表示） */}
 					{rescuePositions.map(rescue => (
 						<Marker
 							key={rescue.id}
 							position={{ lat: rescue.latitude, lng: rescue.longitude }}
-							icon={{
-								path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
-								scale: 5, // アイコンのサイズ
-								fillColor: "#ff7300", // 塗りつぶしの色
-								fillOpacity: 1, // 塗りつぶしの不透明度
-								strokeWeight: 2, // 枠線の太さ
-								strokeColor: "white", // 枠線の色
-							}}
+							icon={
+								getRescueIcon(rescue.doing)
+							}
 						/>
 					))}
 					{/* 役場職員のマーカー（無条件表示） */}
@@ -298,14 +315,9 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 								lat: publicServant.latitude,
 								lng: publicServant.longitude,
 							}}
-							icon={{
-								path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
-								scale: 5, // アイコンのサイズ
-								fillColor: "#3d5a80", // 塗りつぶしの色
-								fillOpacity: 1, // 塗りつぶしの不透明度
-								strokeWeight: 2, // 枠線の太さ
-								strokeColor: "white", // 枠線の色
-							}}
+							icon={
+								getPublicServantIcon(publicServant.doing)
+							}
 						/>
 					))}
 				</GoogleMap>
