@@ -265,7 +265,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
       <div className={"maps"}>
         {isLoaded && (
             <GoogleMap
-                mapContainerStyle={{width: "70vw", height: "80vh"}}
+                mapContainerStyle={{width: "70vw", height: "70vh"}}
                 center={mapCenter}
                 zoom={15}
                 onClick={handleMapClick}
