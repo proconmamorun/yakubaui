@@ -44,6 +44,7 @@ interface RescuePosition {
   id: string;
   latitude: number;
   longitude: number;
+  doing: string;
 }
 
 // 役場職員の位置情報などを定義
@@ -51,6 +52,7 @@ interface PublicServantPosition {
   id: string;
   latitude: number;
   longitude: number;
+  doing: string;
 }
 
 interface Figure {
@@ -195,6 +197,26 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
     };
   };
 
+  // 救助隊のマーカーアイコンを現在の状況に基づいて設定
+	const getRescueIcon = (doing: string) => {
+		const RescueiconUrl = doing === "救助中" ? "/images/MAMORUN_map_icon.png" : doing === "待機中" ? "/images/MAMORUN_map_icon_495960.png" : 'white';
+
+		return {
+			url: RescueiconUrl,
+			scaledSize: new google.maps.Size(40, 40),
+		}
+	};
+
+	// 役場職員のマーカーアイコンを現在の状況に基づいて設定
+	const getPublicServantIcon = (doing: string) => {
+		const PublicServantUrl = doing === "見回り中" ? "" : doing === "待機中" ? "" : 'white';
+
+		return {
+			url: PublicServantUrl,
+			scaledSize: new google.maps.Size(40,40),
+		}
+	};
+
   return (
     <div className={"container"}>
       <div className={"buttons"}>
@@ -283,14 +305,15 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                 <Marker
                   key={rescue.id}
                   position={{ lat: rescue.latitude, lng: rescue.longitude }}
-                  icon={{
-                    path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+                  icon={
+                    getRescueIcon(rescue.doing)
+                    /*path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
                     scale: 5, // アイコンのサイズ
                     fillColor: "#ff7300", // 塗りつぶしの色
                     fillOpacity: 1, // 塗りつぶしの不透明度
                     strokeWeight: 2, // 枠線の太さ
-                    strokeColor: "white", // 枠線の色
-                  }}
+                    strokeColor: "white", // 枠線の色*/
+                  }
                 />
               ))}
 
@@ -304,14 +327,15 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       lat: publicServant.latitude,
                       lng: publicServant.longitude,
                     }}
-                    icon={{
-                      path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
+                    icon={
+                      getPublicServantIcon(publicServant.doing)
+                      /*path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
                       scale: 5, // アイコンのサイズ
                       fillColor: "#3d5a80", // 塗りつぶしの色
                       fillOpacity: 1, // 塗りつぶしの不透明度
                       strokeWeight: 2, // 枠線の太さ
-                      strokeColor: "white", // 枠線の色
-                    }}
+                      strokeColor: "white", // 枠線の色*/
+                    }
                   />
                 ),
               )}
