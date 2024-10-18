@@ -203,7 +203,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
 		return {
 			url: RescueiconUrl,
-			scaledSize: new google.maps.Size(40, 40),
+			scaledSize: new google.maps.Size(30, 30),
 		}
 	};
 
@@ -213,7 +213,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 
 		return {
 			url: PublicServantUrl,
-			scaledSize: new google.maps.Size(40,40),
+			scaledSize: new google.maps.Size(30, 30),
 		}
 	};
 

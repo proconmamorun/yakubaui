@@ -200,7 +200,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 		return {
 			url: RescueiconUrl,
-			scaledSize: new google.maps.Size(50, 50),
+			scaledSize: new google.maps.Size(30, 30),
 		}
 	};
 
@@ -210,7 +210,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 		return {
 			url: PublicServantUrl,
-			scaledSize: new google.maps.Size(50,50),
+			scaledSize: new google.maps.Size(30,30),
 		}
 	};
 
