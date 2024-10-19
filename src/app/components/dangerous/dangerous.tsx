@@ -9,6 +9,7 @@ const Dangerous: React.FC = () => {
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [danger, setDanger] = useState<number | null>(null); 
 	const [popupVisible, setPopupVisible] = useState<boolean>(false);
+	const [popupMessage, setPopupMessage] = useState<string>('');
     const maxImages = 6;
     const dangerLevels = [1, 2, 3, 4, 5];
 
@@ -29,7 +30,11 @@ const Dangerous: React.FC = () => {
     }, []);
 
 	const dangerSend = async () => {
-		if (selectedImage && danger !== null) {
+		if (!selectedImage) {
+			showPopup("画像を選択してください！");
+		} else if (danger === null) {
+			showPopup("危険度を選択してください！");
+		} else {
 			try {
 				const { latitude, longitude } = extractCoordinatesFromFilename(selectedImage);
 
@@ -40,20 +45,21 @@ const Dangerous: React.FC = () => {
 				});
 				console.log("データが保存されました！");
 				
-				// 送信成功時にポップアップを表示
-				setPopupVisible(true);  
-				setTimeout(() => {
-					setPopupVisible(false);  
-				}, 3000);
-				
+				showPopup("危険度データが送信されました！");
 			} catch (error) {
 				console.error("エラーが発生しました: ", error);
+				showPopup("データ送信中にエラーが発生しました！");
 			}
-		} else {
-			console.log("画像と危険度を入力してください");
 		}
-
 		setDanger(null);  // 選択をリセット
+	};
+
+	const showPopup = (message: string) => {
+		setPopupMessage(message);
+		setPopupVisible(true);
+		setTimeout(() => {
+			setPopupVisible(false);
+		}, 3000);
 	};
 
     const handleImageClick = (image: string) => {
@@ -107,7 +113,7 @@ const Dangerous: React.FC = () => {
 					</div>
 					{popupVisible && (  // ポップアップの表示条件
 						<div className="popup">
-							危険度データが送信されました！
+							{popupMessage}
 						</div>
 					)}
                 </div>
