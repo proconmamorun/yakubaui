@@ -122,18 +122,24 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 
 	// データのフェッチ処理
 	useEffect(() => {
-		const fetchData = async () => {
-			const rescueData = await fetchRescuePositionsData();
-			const publicServantData = await fetchPublicServantPositionsData();
+	  const fetchData = async () => {
+		const rescueData = await fetchRescuePositionsData();
+		const publicServantData = await fetchPublicServantPositionsData();
 
-			console.log(rescueData); // 救助隊データの確認
-			console.log(publicServantData); // 役場職員データの確認
+		const usersData = await fetchUsersWithPositionsData();
 
-			setUsersWithPositions(await fetchUsersWithPositionsData());
-			setRescuePositions(rescueData);
-			setPublicServantPositions(publicServantData);
-		};
-		fetchData();
+		// 安否情報でデータを並び替える
+		const sortedUsers = usersData.sort((a: UserWithPosition, b: UserWithPosition) => {
+		  const safetyA = safetyOrder(a.safety ?? '不明');
+		  const safetyB = safetyOrder(b.safety ?? '不明');
+		  return safetyA - safetyB;
+		});
+
+		setUsersWithPositions(sortedUsers);
+		setRescuePositions(rescueData);
+		setPublicServantPositions(publicServantData);
+	  };
+	  fetchData();
 	}, []);
 
 	// 町民をクリックした際の位置情報を設定する処理
@@ -214,10 +220,15 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 		}
 	};
 
+	const safetyOrder = (safety: string) => {
+	  if (safety === '救助が必要') return 1;
+	  if (safety === '無事') return 2;
+	  if (safety === '不明') return 3; // または安否情報がない場合もこれに該当
+	  return 4; // その他の値がある場合
+	};
+
 	return (
 		<div className={"safe-container"}>
-			<p>SafeCheck - 現在のエリア: {area || '未指定'}</p>
-
 			{/* 検索ボックス */}
 			<div className="base-Input-root">
 				<BaseInput
