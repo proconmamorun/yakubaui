@@ -28,4 +28,4 @@ const uploadImage = async (file: File) => {
 }
 };*/
 
-//export {};
+export {};
