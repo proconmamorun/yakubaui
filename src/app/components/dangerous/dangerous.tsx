@@ -15,11 +15,15 @@ const Dangerous: React.FC = () => {
 
     useEffect(() => {
         const fetchImages = async () => {
+            try {
             const storageRef = ref(storage, ''); 
             const imageList = await listAll(storageRef);
             const limitedItems = imageList.items.reverse().slice(0, maxImages); 
             const urls = await Promise.all(limitedItems.map(item => getDownloadURL(item)));
             setImages(urls);
+            } catch (error) {
+                console.error("画像の取得中にエラーが発生しました: ", error);
+            }
         };
 
         fetchImages();

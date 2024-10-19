@@ -202,7 +202,7 @@
 }
 
 .lagend-png {
-  width: 700px; /* 必要に応じてサイズを調整 */
+  width: 650px; /* 必要に応じてサイズを調整 */
   height: auto;
   position:absolute;
   right:30px;
