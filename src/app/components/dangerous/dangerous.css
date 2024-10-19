@@ -100,7 +100,7 @@
 
 .text2 {
   color: #52514D;
-  font-size: 30px;
+  font-size: 20px;
   position: relative;
   top: 20px;
   margin-bottom: 30px;
@@ -125,7 +125,7 @@
 
 .group2 {
     display: flex;
-    justify-content: center; /* ボタンを中央揃えに */
+    justify-content: flex-start; /* ボタンを中央揃えに */
     align-items: center;
     gap: 20px;
 }
@@ -148,9 +148,9 @@
 .textwrapper2 button {
   background-color: #ffffff;
   color: #2fa268;
-  font-size: 20px;
-  padding: 12px 24px;
-  border-radius: 10px;
+  font-size: 16px;
+  padding: 8px 12px;
+  border-radius: 6px;
   transition: background-color 0.3s, color 0.3s, transform 0.3s;
   box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
   cursor: pointer;
@@ -159,7 +159,7 @@
 .textwrapper2 button:hover {
   background-color: #2fa268;
   color: #ffffff;
-  transform: translateY(-3px); /* ホバー時に少し浮くアニメーション */
+  transform: translateY(-2px); /* ホバー時に少し浮くアニメーション */
 }
 
 .textwrapper2 button:active {
@@ -171,5 +171,5 @@
 .textwrapper2Selected button {
   background-color: #2fa268;
   color: #ffffff;
-  border: 6px solid #2fa268;
+  border: 4px solid #2fa268;
 }
