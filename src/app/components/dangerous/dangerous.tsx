@@ -71,26 +71,26 @@ const Dangerous: React.FC = () => {
                 </div>
                 <div className="kikendoBox">
                     <div className="text2">危険度を選択してください。</div>
-					<div className="group2">
-						{dangerLevels.map((level) => (
-							<div key={level} className={`textwrapper2 ${danger === level ? 'textwrapper2selected' : ''}`}>
-								<button onClick={() => dangerousChoice(level)}>
-									危険度{level}
-								</button>
-							</div>
-						))}
-						<div className={`textwrapper2 ${danger === 0 ? 'textwrapper2selected' : ''}`}>
-							<button onClick={() => dangerousChoice(0)}>
-								安全
-							</button>
-						</div>
-                    </div>
                     <div className="box">
                         <div className="group">
                             <div className="divwrapper">
 								<button onClick={Dangerous} className="textwrapper">送信</button>
                             </div>
                         </div>
+                    </div>
+						<div className="group2">
+							{dangerLevels.map((level) => (
+								<div key={level} className={`textwrapper2 ${danger === level ? 'textwrapper2selected' : ''}`}>
+									<button onClick={() => dangerousChoice(level)}>
+										危険度{level}
+									</button>
+								</div>
+							))}
+						<div className={`textwrapper2 ${danger === 1 ? 'textwrapper2selected' : ''}`}>
+							<button onClick={() => dangerousChoice(1)}>
+								安全
+							</button>
+						</div>
                     </div>
                 </div>
             </div>
