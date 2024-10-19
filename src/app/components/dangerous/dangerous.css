@@ -119,10 +119,6 @@
   flex-direction: row;
 }
 
-.textwrapper {
-  margin-left: auto;
-}
-
 .group2 {
     display: flex;
     justify-content: flex-start; /* ボタンを中央揃えに */
@@ -130,19 +126,65 @@
     gap: 20px;
 }
 
-.textwrapper2Selected{
-	background-color: #2fa268;
-	font-size: 24px;
-	color: white;
-	color: #ffffff;
-	font-size: 24px;
-	font-weight: 500;
-	display: flex;
-	justify-content: center;
-	align-items: center;
-	border-radius: 10px;
-	padding: 10px;
-	cursor: pointer;
+.textwrapper2 button {
+    background-color: #4CAF50; /* 背景色を緑に */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px; /* 丸みを追加 */
+}
+
+.textwrapper2 button:hover {
+    background-color: #45a049; /* ホバー時に背景色を少し濃く */
+}
+
+.textwrapper2 button:active {
+    transform: scale(0.95); /* クリック時に少し縮む */
+}
+
+.textwrapper2selected button {
+    background-color: #3e8e41; /* 選択されたボタンの背景色 */
+}
+
+.send-button {
+    background-color: #f9917b; /* 決定ボタンを赤に */
+    color: white;
+    border: none;
+    padding: 12px 24px;
+    text-align: center;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    border-radius: 12px;
+    box-shadow: 0 4px #999; /* ボタンに影を追加 */
+}
+
+.send-button:active {
+    transform: scale(0.95); /* クリック時に少し縮む */
+    background-color: #ff4b00;
+    box-shadow: 0 2px #666; /* クリック時に影を変える */
+}
+
+.popup {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #4CAF50;
+    color: white;
+    padding: 15px 30px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    transition: opacity 0.3s ease-in-out;
 }
 
 .textwrapper2 button {
@@ -162,14 +204,7 @@
   transform: translateY(-2px); /* ホバー時に少し浮くアニメーション */
 }
 
-.textwrapper2 button:active {
-  background-color: #1e874b;
-  color: #ffffff;
-  transform: translateY(0); /* クリック時に元の位置に戻る */
-}
-
-.textwrapper2Selected button {
+.textwrapper2selected button {
   background-color: #2fa268;
   color: #ffffff;
-  border: 4px solid #2fa268;
 }

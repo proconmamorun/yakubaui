@@ -8,6 +8,7 @@ const Dangerous: React.FC = () => {
     const [images, setImages] = useState<string[]>([]);
     const [selectedImage, setSelectedImage] = useState<string | null>(null);
     const [danger, setDanger] = useState<number | null>(null); 
+	const [popupVisible, setPopupVisible] = useState<boolean>(false);
     const maxImages = 6;
     const dangerLevels = [1, 2, 3, 4, 5];
 
@@ -23,6 +24,34 @@ const Dangerous: React.FC = () => {
         fetchImages();
     }, []);
 
+	const dangerSend = async () => {
+		if (selectedImage && danger !== null) {
+			try {
+				const { latitude, longitude } = extractCoordinatesFromFilename(selectedImage);
+
+				await addDoc(collection(db, "locations"), {
+					latitude,
+					longitude,
+					dangerLevel: danger,
+				});
+				console.log("データが保存されました！");
+				
+				// 送信成功時にポップアップを表示
+				setPopupVisible(true);  
+				setTimeout(() => {
+					setPopupVisible(false);  
+				}, 3000);
+				
+			} catch (error) {
+				console.error("エラーが発生しました: ", error);
+			}
+		} else {
+			console.log("画像と危険度を入力してください");
+		}
+
+		setDanger(null);  // 選択をリセット
+	};
+
     const handleImageClick = (image: string) => {
         setSelectedImage(image);
     };
@@ -30,25 +59,6 @@ const Dangerous: React.FC = () => {
     const dangerousChoice = (level: number) => {
         setDanger(level);
         console.log(`危険度: ${level}`);
-    };
-
-    const dangerSend = async () => {
-        if (selectedImage && danger !== null) {
-            try {
-                const { latitude, longitude } = extractCoordinatesFromFilename(selectedImage);
-                
-                await addDoc(collection(db, "locations"), {
-                    latitude,
-                    longitude,
-                    dangerLevel: danger,
-                });
-                console.log("データが保存されました！");
-            } catch (error) {
-                console.error("エラーが発生しました: ", error);
-            }
-        } else {
-            console.log("画像と危険度を入力してください");
-        }
     };
 
     return (
@@ -84,13 +94,18 @@ const Dangerous: React.FC = () => {
 								</button>
 							</div>
 						))}
-						<div className={`textwrapper2 ${danger === 1 ? 'textwrapper2selected' : ''}`}>
-							<button onClick={() => dangerousChoice(1)}>
+						<div className={`textwrapper2 ${danger === 0 ? 'textwrapper2selected' : ''}`}>
+							<button onClick={() => dangerousChoice(0)}>
 								安全
 							</button>
 						</div>
-                        <button onClick={dangerSend} className="textwrapper">送信</button>
+						<button className="send-button" onClick={dangerSend}>送信</button>
 					</div>
+					{popupVisible && (  // ポップアップの表示条件
+						<div className="popup">
+							危険度データが送信されました！
+						</div>
+					)}
                 </div>
             </div>
         </div>
