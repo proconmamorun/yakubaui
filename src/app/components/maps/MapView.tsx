@@ -73,7 +73,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   const [isPublished, setIsPublished] = useState<boolean>(false);
   const [isPublicServantView, setIsPublicServantView] =
     useState<boolean>(false);
-  const [isPositionsDataView, setIsPositionsDataView] = useState<boolean>(false);
+  const [isPositionsDataView, setIsPositionsDataView] = useState<boolean>(true);
   const [isCitizen, setIsCitizenView] = useState<boolean>(false);
   const [positions, setPositions] = useState<Position[]>([]);
   const [figure, setFigure] = useState<Figure>({
