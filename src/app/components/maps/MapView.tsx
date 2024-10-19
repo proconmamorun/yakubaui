@@ -171,8 +171,11 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   // ピンをクリックして削除する処理
   const handleMarkerClick = async (id: string) => {
     try {
-      await deleteDoc(doc(db, "locations", id)); // Firestoreから削除
-      setPositions(positions.filter((position) => position.id !== id)); // ローカルステートから削除
+      const confirmDelete = window.confirm("削除してもよろしいですか？");
+      if (confirmDelete) {
+        await deleteDoc(doc(db, "locations", id)); // Firestoreから削除
+        setPositions(positions.filter((position) => position.id !== id)); // ローカルステートから削除
+      }
     } catch (error) {
       console.error("Error removing document: ", error);
     }
@@ -253,6 +256,18 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
           <div
               className={`toggle ${isCitizen ? "city-toggle-on" : ""}`}
               onClick={() => setIsCitizenView(!isCitizen)}
+          >
+            <div className="toggle-text-off">OFF</div>
+            <div className="glow-comp"></div>
+            <div className="toggle-button"></div>
+            <div className="toggle-text-on">ON</div>
+          </div>
+        </div>
+        <div>
+          <p className={`label ${isRescueView ? "label-on" : ""}`}>危険箇所</p>
+          <div
+              className={`toggle ${isRescueView ? "toggle-on" : ""}`}
+              onClick={() => setIsRescueView(!isRescueView)}
           >
             <div className="toggle-text-off">OFF</div>
             <div className="glow-comp"></div>
