@@ -73,6 +73,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
   const [isPublished, setIsPublished] = useState<boolean>(false);
   const [isPublicServantView, setIsPublicServantView] =
     useState<boolean>(false);
+  const [isPositionsDataView, setIsPositionsDataView] = useState<boolean>(false);
   const [isCitizen, setIsCitizenView] = useState<boolean>(false);
   const [positions, setPositions] = useState<Position[]>([]);
   const [figure, setFigure] = useState<Figure>({
@@ -264,10 +265,10 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
           </div>
         </div>
         <div>
-          <p className={`label ${isRescueView ? "label-on" : ""}`}>危険箇所</p>
+          <p className={`label ${isPositionsDataView ? "label-on" : ""}`}>危険箇所</p>
           <div
-              className={`toggle ${isRescueView ? "toggle-on" : ""}`}
-              onClick={() => setIsRescueView(!isRescueView)}
+              className={`toggle ${isPositionsDataView ? "toggle-on" : ""}`}
+              onClick={() => setIsPositionsDataView(!isPositionsDataView)}
           >
             <div className="toggle-text-off">OFF</div>
             <div className="glow-comp"></div>
@@ -298,10 +299,11 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       }}*/
                       onClick={() => handleMarkerClick(position.id)}
                   />
-              ))
-              }
-
-            {positions.map((position) => (
+              ))}
+            
+            {/*危険箇所のマーカー*/}
+            {isPositionsDataView &&
+              positions.map((position) => (
               <Marker
                 key={position.id}
                 position={{ lat: position.latitude, lng: position.longitude }}
@@ -321,18 +323,11 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                   key={rescue.id}
                   position={{ lat: rescue.latitude, lng: rescue.longitude }}
                   icon={
-                    getRescueIcon(rescue.doing)
-                    /*path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
-                    scale: 5, // アイコンのサイズ
-                    fillColor: "#ff7300", // 塗りつぶしの色
-                    fillOpacity: 1, // 塗りつぶしの不透明度
-                    strokeWeight: 2, // 枠線の太さ
-                    strokeColor: "white", // 枠線の色*/
-                  }
+                    getRescueIcon(rescue.doing)}
                 />
               ))}
 
-            {/* 役場の人のマーカー（丸いマーカーを使用） */}
+            {/* 役場の人のマーカー*/}
             {isPublicServantView &&
               publicServantPositions.map(
                 (publicServant: PublicServantPosition) => (
@@ -342,15 +337,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
                       lat: publicServant.latitude,
                       lng: publicServant.longitude,
                     }}
-                    icon={
-                      getPublicServantIcon(publicServant.doing)
-                      /*path: google.maps.SymbolPath.BACKWARD_OPEN_ARROW, // 丸いマーカーの形状
-                      scale: 5, // アイコンのサイズ
-                      fillColor: "#3d5a80", // 塗りつぶしの色
-                      fillOpacity: 1, // 塗りつぶしの不透明度
-                      strokeWeight: 2, // 枠線の太さ
-                      strokeColor: "white", // 枠線の色*/
-                    }
+                    icon={getPublicServantIcon(publicServant.doing)}
                   />
                 ),
               )}
