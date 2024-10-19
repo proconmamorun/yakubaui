@@ -8,6 +8,8 @@ import {
   doc,
 } from "firebase/firestore"; // deleteDoc をインポート
 import { db } from "../firebase/firebaseConfig";
+import Image from 'next/image';
+import legend from '/public/images/legend.png';
 import {
   fetchUsersWithPositionsData,
   fetchRescuePositionsData,
@@ -222,7 +224,9 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 	};
 
   return (
-    <div className={"container"}>
+    <div>
+      <Image src={legend} className="lagend-png" alt="legend" />
+    <div className={"container-lagend"}>
       <div className={"buttons"}>
         <div>
           <p className={`label ${isRescueView ? "label-on" : ""}`}>救助</p>
@@ -276,6 +280,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
             <div className="toggle-text-on">ON</div>
           </div>
         </div>
+      </div>
       </div>
 
       <div className={"maps"}>

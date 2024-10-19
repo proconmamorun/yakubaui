@@ -12,7 +12,7 @@ const Map: React.FC<MapProps> = ({ area }) => {
 
 	return (
 		<div>
-			<div className="container">
+			<div className="container-lagend">
 				<MapView
 					mapCenter={center}
 				/>

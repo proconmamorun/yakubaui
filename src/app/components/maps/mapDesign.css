@@ -1,9 +1,10 @@
-.container {
+.container-lagend {
   display: flex;
   justify-content: left;
   align-items: flex-start;
-  height: 100vh; /* 画面全体の高さに合わせる */
+  height: auto;
   background-color: white; /* 背景色を白に設定 */
+  margin-top: 60px;
 }
 
 .buttons {
@@ -198,4 +199,12 @@
 .publish-buttons-off {
   max-height: 0;
   opacity: 0;
+}
+
+.lagend-png {
+  width: 700px; /* 必要に応じてサイズを調整 */
+  height: auto;
+  position:absolute;
+  right:30px;
+  top:50px;
 }
