@@ -74,7 +74,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea, setFilterDistrict }
 				<div className={"white-area"}>
 					{/* SafeCheck表示時に地区をフィルタリングする */}
 					<button onClick={() => {
-						setMode('SafeCheck');  // SafeCheckモードに切り替え
+						setMode('SafeCheck');
 						setArea('神領');      // 地区名をセット
 						setFilterDistrict('神領'); // SafeCheckのフィルタリング用に地区をセット
 					}}>神領
@@ -105,10 +105,7 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea, setFilterDistrict }
 					</button>
 				</div>
 
-				<button onClick={() => {
-					setMode('newsBelt')  // ニュースベルトモード
-				}} className={"white-button"}>緊急速報
-				</button>
+				<button onClick={() => { setMode('newsBelt') }} className={"white-button"}>緊急速報</button>
 				<button onClick={() => {
 					setMode('Dangerous')  // 危険モード
 				}} className={"white-button"}>危険確認
