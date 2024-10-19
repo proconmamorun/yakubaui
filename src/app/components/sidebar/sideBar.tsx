@@ -107,11 +107,11 @@ const SideBar: React.FC<SideBarProps> = ({ setMode, setArea, setFilterDistrict }
 
 				<button onClick={() => {
 					setMode('newsBelt')  // ニュースベルトモード
-				}} className={"white-button"}>帯表示
+				}} className={"white-button"}>緊急速報
 				</button>
 				<button onClick={() => {
 					setMode('Dangerous')  // 危険モード
-				}} className={"white-button"}>危険を特定
+				}} className={"white-button"}>危険確認
 				</button>
 			</div>
 			<div className="greenBox1"></div>
