@@ -36,8 +36,8 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                     />
                 </div>
 				<div style={{ display: 'flex', gap: '20px' }}>
-					<button onClick={handleDel} className="textwrapper">送信</button>
-                    <button onClick={handleSend} className="textwrapper tw_red">削除</button>
+					<button onClick={handleSend} className="textwrapper">送信</button>
+                    <button onClick={handleDel} className="textwrapper tw_red">削除</button>
 				</div>
 			</div>
         </div>
