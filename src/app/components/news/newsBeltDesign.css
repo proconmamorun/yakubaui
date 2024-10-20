@@ -34,6 +34,7 @@
   font-weight: 500;
   position: relative;
   top: 10px;
+  left: 20px;
 }
 
 .textwrapper {
@@ -47,8 +48,12 @@
   height: 50px;
   width: 200px;
   margin-top: 20px;
-  margin-right: 90px;
   display:flex;
   justify-content: center;
   align-items: center;
+}
+
+.tw_red {
+  color: #e43131;
+  border: 3px solid #e43131;
 }

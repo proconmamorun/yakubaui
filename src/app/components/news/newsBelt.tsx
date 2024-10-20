@@ -1,6 +1,6 @@
 import React, { useState } from 'react'; 
 import './newsBeltDesign.css';
-import SendAlert from './SendAlert';
+import SendAlert, { DeleteAlert } from './SendAlert';
 import { Obi } from './Obi';
 
 interface MapProps {
@@ -17,6 +17,10 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
             setMessage(''); // 送信後に入力フィールドをリセット
         }
     };
+    const handleDel = async () => {
+        await DeleteAlert();
+        setMessage(''); // 送信後に入力フィールドをリセット
+    };
 
     return (
         <div>
@@ -31,7 +35,10 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
                         onChange={(e) => setMessage(e.target.value)} // 入力値を更新
                     />
                 </div>
-				<button onClick={handleSend} className="textwrapper">送信</button>
+				<div style={{ display: 'flex', gap: '20px' }}>
+					<button onClick={handleDel} className="textwrapper">送信</button>
+                    <button onClick={handleSend} className="textwrapper tw_red">削除</button>
+				</div>
 			</div>
         </div>
     );

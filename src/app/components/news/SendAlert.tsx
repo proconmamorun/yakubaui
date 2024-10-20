@@ -1,4 +1,4 @@
-import { doc, collection, addDoc, deleteDoc } from 'firebase/firestore';
+import { doc, collection, addDoc, deleteDoc, getDocs } from 'firebase/firestore';
 import { db } from '../firebase/firebaseConfig';
 
 // メッセージを保存または削除するための関数
@@ -21,16 +21,23 @@ const SendAlert = async (action: 'save' | 'delete', message: string, id?: string
             console.log("保存に失敗しました");
         }
     // メッセージの削除
-    } else if (action === 'delete' && id) {
-        try {
-            const alertDocRef = doc(db, "alert", id); // 削除するドキュメントの参照を取得
-            await deleteDoc(alertDocRef); // ドキュメントを削除
-            console.log("削除しました");
-        } catch (error) {
-            console.error("Error deleting positions: ", error);
-            console.log("削除に失敗しました");
-        }
+    } else if (action === 'delete') {
     }
 };
+
+export const DeleteAlert = async ()=>{
+    try {
+        const alertCollectionRef = collection(db, "alert"); // コレクションの参照を取得
+        const alertDocsSnapshot = await getDocs(alertCollectionRef); // コレクション内の全てのドキュメントを取得
+
+        alertDocsSnapshot.forEach(async (doc) => {
+            await deleteDoc(doc.ref); // 各ドキュメントを削除
+        });
+        console.log("削除しました");
+    } catch (error) {
+        console.error("Error deleting positions: ", error);
+        console.log("削除に失敗しました");
+    }
+}
 
 export default SendAlert;
