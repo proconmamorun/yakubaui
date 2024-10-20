@@ -265,6 +265,7 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 							<TableCell className="name">名前</TableCell>
 							<TableCell className="safety">安否</TableCell>
 							<TableCell className="position">位置情報</TableCell>
+							<TableCell className="place">場所</TableCell>
 						</TableRow>
 					</TableHead>
 					<TableBody className="citizentable">
@@ -277,13 +278,15 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 									{/* 安否がない場合のデフォルト値 */}
 									<TableCell className="userposition">
 										緯度 {user.latitude}, 経度 {user.longitude}
+									</TableCell>
+									<TableCell>
 										<Button
 											variant="contained"
 											onClick={() => handleUserClick(user.latitude, user.longitude)}
 											size="small"
 											sx={{ ml: 2 }}
 										>
-											位置情報
+										位置情報
 										</Button>
 									</TableCell>
 								</TableRow>

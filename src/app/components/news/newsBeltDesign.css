@@ -33,8 +33,13 @@
   color: rgb(62, 62, 62);
   font-weight: 500;
   position: relative;
-  top: 10px;
+  top: 15px;
   left: 20px;
+}
+
+.EmergencyNews{
+  font-weight: 1000;
+  /* color:red; */
 }
 
 .textwrapper {

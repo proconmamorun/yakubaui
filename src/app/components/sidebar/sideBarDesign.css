@@ -37,10 +37,26 @@ button{
 }
 
 .white-button {
-	background-color: #ffffff;
-	color: #2FA268;
-	font-size: 1.2em;
-	border-radius: 10px;
+  background-color: #ffffff;
+  color: #2fa268;
+  font-size: 16px;
+  padding: 10px 15px;
+  border-radius: 8px;
+  border: none;
+  transition: background-color 0.3s, color 0.3s, box-shadow 0.3s, transform 0.3s;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.white-button:hover {
+  background-color: #2FA268;
+  color: #ffffff;
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+}
+
+.white-button:active {
+  transform: translateY(0); /* クリック時に元の位置に戻る */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 }
 
 .white-area {
