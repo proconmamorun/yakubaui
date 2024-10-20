@@ -41,7 +41,7 @@ const Dangerous: React.FC = () => {
 				await addDoc(collection(db, "locations"), {
 					latitude,
 					longitude,
-					dangerLevel: danger,
+					dangerlevel: danger,
 				});
 				console.log("データが保存されました！");
 				
