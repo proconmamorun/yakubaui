@@ -23,7 +23,7 @@ const NewsBelt: React.FC<MapProps> = ({ area }) => {
             <div className="container">
 				<Obi />
                 <div className="frame">
-                    <div className="nyuuryokutext">文を入力してください。</div>
+                    <div className="nyuuryokutext"><span className="EmergencyNews">緊急速報</span>を入力してください。</div>
                     <input
                         type="text"
                         className="nyuuryokusikaku"
