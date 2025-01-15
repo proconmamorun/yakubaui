@@ -15,6 +15,8 @@ import {
   fetchRescuePositionsData,
   fetchPublicServantPositionsData,
 } from "../positionsService";
+import { create } from "domain";
+import { query, orderBy } from "firebase/firestore";
 
 interface MapViewProps {
   mapCenter: {
@@ -117,13 +119,21 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
 	const fetchPositionsData = async () => {
 		try {
 			const positionsCollection = collection(db, "locations");
-      
-			const positionsSnapshot = await getDocs(positionsCollection);
-			const positionsList = positionsSnapshot.docs.map((doc) => ({
-				id: doc.id,
-				...doc.data(),
-			})) as Position[];
-			setPositions(positionsList);
+
+      // タイムスタンプでソート
+      const q = query(positionsCollection, orderBy("createdAt", "desc"));
+      const positionsSnapshot = await getDocs(q);
+
+      // 最新の危険箇所のみを保持
+			const positionsList = new Map<string, Position>();
+      positionsSnapshot.forEach((doc) => {
+        const data = doc.data() as Omit<Position, 'id'>;
+        const key = `${data.latitude},${data.longitude}`;
+        if (!positionsList.has(key)) {
+          positionsList.set(key, {id: doc.id, ...data});
+        }
+      });
+      setPositions(Array.from(positionsList.values()));
 		} catch (error) {
 			console.error("Error fetching positions: ", error);
 		}
@@ -151,6 +161,7 @@ const MapView: React.FC<MapViewProps> = ({ mapCenter }) => {
             latitude: position.lat,
             longitude: position.lng,
             dangerlevel: figure.dangerlevel,
+            createdAt: new Date(),
           };
           if (newFigure.dangerlevel === 0) {
             alert("危険度を設定してください");

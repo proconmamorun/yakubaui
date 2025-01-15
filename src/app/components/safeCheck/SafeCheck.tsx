@@ -257,6 +257,43 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 				</ToggleButton>
 			</ToggleButtonGroup>
 
+			{/* 地図表示 */}
+			{isMapView && mapCenter && isLoaded && (
+				<GoogleMap mapContainerStyle={{width: '70vw', height: '60vh'}} center={mapCenter} zoom={20}>
+					{usersWithPositions.map(position => (
+						<Marker
+							key={position.id}
+							position={{lat: position.latitude, lng: position.longitude}}
+							icon={getMarkerIcon(position.safety ?? "")}
+						/>
+					))}
+					
+					{/* 救助隊のマーカー（無条件表示） */}
+					{rescuePositions.map(rescue => (
+						<Marker
+							key={rescue.id}
+							position={{ lat: rescue.latitude, lng: rescue.longitude }}
+							icon={
+								getRescueIcon(rescue.doing)
+							}
+						/>
+					))}
+					{/* 役場職員のマーカー（無条件表示） */}
+					{publicServantPositions.map(publicServant => (
+						<Marker
+							key={publicServant.id}
+							position={{
+								lat: publicServant.latitude,
+								lng: publicServant.longitude,
+							}}
+							icon={
+								getPublicServantIcon(publicServant.doing)
+							}
+						/>
+					))}
+				</GoogleMap>
+			)}
+
 			{/* 町民の安否情報テーブル */}
 			<TableContainer component={Paper}>
 				<Table>
@@ -299,43 +336,6 @@ const SafeCheck: React.FC<SafeCheckProps> = ({ area, filterDistrict }) => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-
-			{/* 地図表示 */}
-			{isMapView && mapCenter && isLoaded && (
-				<GoogleMap mapContainerStyle={{width: '70vw', height: '60vh'}} center={mapCenter} zoom={20}>
-					{usersWithPositions.map(position => (
-						<Marker
-							key={position.id}
-							position={{lat: position.latitude, lng: position.longitude}}
-							icon={getMarkerIcon(position.safety ?? "")}
-						/>
-					))}
-					
-					{/* 救助隊のマーカー（無条件表示） */}
-					{rescuePositions.map(rescue => (
-						<Marker
-							key={rescue.id}
-							position={{ lat: rescue.latitude, lng: rescue.longitude }}
-							icon={
-								getRescueIcon(rescue.doing)
-							}
-						/>
-					))}
-					{/* 役場職員のマーカー（無条件表示） */}
-					{publicServantPositions.map(publicServant => (
-						<Marker
-							key={publicServant.id}
-							position={{
-								lat: publicServant.latitude,
-								lng: publicServant.longitude,
-							}}
-							icon={
-								getPublicServantIcon(publicServant.doing)
-							}
-						/>
-					))}
-				</GoogleMap>
-			)}
 		</div>
 	);
 };
