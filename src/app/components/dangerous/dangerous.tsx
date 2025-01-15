@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { ref, listAll, getDownloadURL } from "firebase/storage";
 import './dangerous.css';  
 import { db, storage } from "../firebase/firebaseConfig";  
-import { addDoc, collection } from 'firebase/firestore';
+import { addDoc, collection, getDocs } from 'firebase/firestore';
 
 const Dangerous: React.FC = () => {
     const [images, setImages] = useState<string[]>([]);
@@ -16,11 +16,18 @@ const Dangerous: React.FC = () => {
     useEffect(() => {
         const fetchImages = async () => {
             try {
-            const storageRef = ref(storage, ''); 
-            const imageList = await listAll(storageRef);
-            const limitedItems = imageList.items.reverse().slice(0, maxImages); 
-            const urls = await Promise.all(limitedItems.map(item => getDownloadURL(item)));
-            setImages(urls);
+                // 全ての画像を取得
+                const storageRef = ref(storage, ''); 
+                const imageList = await listAll(storageRef);
+                const allUrls = await Promise.all(imageList.items.map(item => getDownloadURL(item)));
+
+                // 送信済みの画像を取得
+                const sentImagesSnapshot = await getDocs(collection(db, "sentImages"));
+                const sentImageUrls = sentImagesSnapshot.docs.map(doc => doc.data().url);
+            
+                // 未送信の画像を取得
+                const unsentImages = allUrls.filter(url => !sentImageUrls.includes(url));
+                setImages(unsentImages.slice(0, maxImages));
             } catch (error) {
                 console.error("画像の取得中にエラーが発生しました: ", error);
             }
@@ -43,13 +50,20 @@ const Dangerous: React.FC = () => {
 					longitude,
 					dangerlevel: danger,
 				});
-				console.log("データが保存されました！");
-				
-				showPopup("危険度データが送信されました！");
+
+                // 送信済み画像を記録
+                await addDoc(collection(db, "sentImages"), {
+                    url: selectedImage,
+                });
+
+                console.log("データが保存されました！");
+                showPopup("危険度データが送信されました！");
             
                 // 送信済み画像を一覧から削除
                 setImages(prevImages => prevImages.filter(image => image !== selectedImage));
                 setSelectedImage(null);
+
+                await fetchNewImages();
 			} catch (error) {
 				console.error("エラーが発生しました: ", error);
 				showPopup("データ送信中にエラーが発生しました！");
@@ -57,6 +71,21 @@ const Dangerous: React.FC = () => {
 		}
 		setDanger(null);  // 選択をリセット
 	};
+
+    const fetchNewImages = async () => {
+        try {
+            const storageRef = ref(storage, '');
+            const imageList = await listAll(storageRef);
+            const urls = await Promise.all(imageList.items.map(item => getDownloadURL(item)));
+
+            setImages(prevImages => {
+                const newImages = urls.filter(url => !prevImages.includes(url));
+                return [...newImages, ...prevImages].slice(0, maxImages);
+            });
+        } catch (error) {
+            console.error("画像の再取得中にエラーが発生しました: ", error);
+        }
+    };
 
 	const showPopup = (message: string) => {
 		setPopupMessage(message);
