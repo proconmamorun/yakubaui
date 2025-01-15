@@ -46,6 +46,10 @@ const Dangerous: React.FC = () => {
 				console.log("データが保存されました！");
 				
 				showPopup("危険度データが送信されました！");
+            
+                // 送信済み画像を一覧から削除
+                setImages(prevImages => prevImages.filter(image => image !== selectedImage));
+                setSelectedImage(null);
 			} catch (error) {
 				console.error("エラーが発生しました: ", error);
 				showPopup("データ送信中にエラーが発生しました！");
